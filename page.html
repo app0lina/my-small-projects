@@ -42,7 +42,7 @@
   </div>
   <div id="timerDiv"><div id="secDiv"></div></div>
   <script type="text/javascript">
-    alert("git test 5")
+    
     langEng.setAttribute("onclick", "createEng(\"You will have \")");
     langRus.setAttribute("onclick", "createRus(\"\У тебя будет \")");
 
@@ -149,9 +149,6 @@
       ques.setAttribute("onclick", "start(engTiU, engSR, engPointsCounter, engPoin)");
       ques.innerHTML = "Start game!";
 
-      // var d = document.createElement("div")
-      // timerDiv.append(d);
-
       var but = document.createElement("button");
       but.setAttribute("id", "editButt");
       but.innerHTML = "Edit";
@@ -160,11 +157,6 @@
       secDiv.before(lang);
       secDiv.append(timeleft+ " sec")
 
-      // var tld = document.createElement("div");
-      // tld.setAttribute("id", "secDiv");
-      // tld.innerHTML = timeleft;
-      // timerDiv.innerHTML = lang;
-      // timerDiv.append(tld);
       timerDiv.append(but);
     }
 
@@ -222,23 +214,16 @@
       sw.setAttribute("onclick", "clickBut(\"юго-запад\")");
       s.setAttribute("onclick", "clickBut(\"юг\")");
       se.setAttribute("onclick", "clickBut(\"юго-восток\")");
-     
-      var d = document.createElement("div")
-      timerDiv.append(d);
 
       var but = document.createElement("button");
       but.setAttribute("id", "editButt");
       but.innerHTML = "Изменить"
       but.setAttribute("onclick", "editTime(\"Сохранить изменения\", \'Изменить\')");
 
-      var tld = document.createElement("div");
-      tld.setAttribute("id", "secDiv")
-      tld.innerHTML = timeleft;
-      timerDiv.innerHTML = lang;
-      // timerDiv.append(tld);
+      secDiv.before(lang);
+      secDiv.append(timeleft+ " секунд")
+
       timerDiv.append(but);
-      // secDiv.before(lang);
-      secDiv.append(timeleft+ " sec");
     };
 
     function rand(min, max) {
