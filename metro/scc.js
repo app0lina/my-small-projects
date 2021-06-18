@@ -32,13 +32,12 @@ var f = document.createElement("div");
 	var sub = document.createElement("button");
 	sub.setAttribute("onclick", "hhh()")
 	sub.innerHTML = "SUBMIT";
-	var br = document.createElement("br");
 
 	f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
 	document.body.append(f);
 
 	var numques = document.createElement("select");
-	document.body.append(document.createElement("br"), numques, document.createElement("br"),  sub);
+	document.body.append(document.createElement("br"), numques, document.createElement("br"),  sub, document.createElement("br"));
 
 	numques.setAttribute("id", "nques");
 	for(var y = 2; y<=10;y++){
@@ -48,8 +47,13 @@ var f = document.createElement("div");
 		numques.append(op)
 	}
 
+	var br = document.createElement("input");
+	document.body.append(br )
+	br.setAttribute("type", "checkbox");
+
 	var uron; //user random or not
 	var nq; //number questions
+	var chbr; //user choosed branches
 
 	function hhh() {
 	
@@ -61,5 +65,4 @@ var f = document.createElement("div");
 		}
 		nq = Number(nques.value.slice(2));
 		alert(nq);
-
 	}
