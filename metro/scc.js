@@ -39,7 +39,7 @@ var f = document.createElement("div");
 	document.body.append(f);
 
 	var numques = document.createElement("select");
-	document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"),  sub, document.createElement("br"), document.createElement("br"));
+	document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 
 	numques.setAttribute("id", "nques");
 	for(var y = 2; y<=10;y++){
@@ -54,11 +54,13 @@ var f = document.createElement("div");
 	for(var j = 0; j<all.length;j++){
 		var cur = document.createElement("input");
 		cur.setAttribute("type", "checkbox");
+		cur.setAttribute("id", all[j][0]);
 		var curl = document.createElement("label");
-		curl.innerHTML = all[]
-		br.append(cur, )
+		curl
+		curl.innerHTML = all[j][0]; //m1, m2...
+		br.append(cur, curl, document.createElement("br"))
 	}
-
+	document.body.append(br, document.createElement("br"), sub)
 	var uron; //user random or not
 	var nq; //number questions
 	var chbr; //user choosed branches
