@@ -61,9 +61,11 @@ var f = document.createElement("div");
 		br.append(cur, curl, document.createElement("br"))
 	}
 	document.body.append(br, document.createElement("br"), sub)
+
 	var uron; //user random or not
 	var nq; //number questions
 	var chbr; //user choosed branches
+	var ubr = []; //user branch
 
 	function hhh() {
 	
@@ -75,4 +77,11 @@ var f = document.createElement("div");
 		}
 		nq = Number(nques.value.slice(2));
 		alert(nq);
+		for(var h = 1; h<5; h++){
+			if(document.getElementById("M"+h).checked){
+				alert("M"+h);
+				ubr.push("M"+h)
+			}
+		}
+		alert(ubr)
 	}
