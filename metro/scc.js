@@ -70,10 +70,15 @@ var f = document.createElement("div");
 	function hhh() {
 		
 		for (var i = 0, length = document.getElementsByName("rand").length; i < length; i++) {
+			
 			if(document.getElementsByName("rand")[i].checked){
 				// alert(document.getElementsByName("rand")[i].id)
 				uron = document.getElementsByName("rand")[i].id;
 			}
+		
+		}
+		if(uron == undefined) {
+			alert("Ch")
 		}
 		nq = Number(nques.value.slice(2));
 		// alert(nq);
@@ -84,7 +89,11 @@ var f = document.createElement("div");
 			}
 		}
 
-		document.body.innerHTML = "";
-//random chenage
+
 		
 	}
+
+
+var mig = setTimeout(function(){
+	document.getElementsByName("rand").style.color = "red"
+})
