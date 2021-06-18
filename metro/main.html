@@ -37,14 +37,23 @@
 	var sub = document.createElement("button");
 	sub.setAttribute("onclick", "hhh()")
 	sub.innerHTML = "SUBMIT";
+	var br = document.createElement("br");
 
-	var numques = document.createElement("input");
-	numques.setAttribute("id", "nques");
-
-	f.append(r, rl, nr, nrl, sub);
+	f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
 	document.body.append(f);
 
-	var uron;
+	var numques = document.createElement("select");
+	document.body.append(document.createElement("br"), numques, document.createElement("br"),  sub);
+
+	numques.setAttribute("id", "nques");
+	for(var y = 2; y<=10;y++){
+		var op = document.createElement("option");
+		op.setAttribute("value", "op"+y);
+		op.innerHTML = y;
+		numques.append(op)
+	}
+
+	var uron; //user random or not
 
 	function hhh() {
 	
