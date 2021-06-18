@@ -59,5 +59,7 @@ var f = document.createElement("div");
 				uron = document.getElementsByName("rand")[i].id;
 			}
 		}
-		nq = Number(nques.value.slice(2)) ;
+		nq = Number(nques.value.slice(2));
+		alert(nq);
+
 	}
