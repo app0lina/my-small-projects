@@ -9,7 +9,7 @@
 <body>
 	<!-- <script type="text/javascript" src="scc.js"></script> -->
 	<script type="text/javascript">
-		var f = document.createElement("p");
+		var f = document.createElement("div");
 	f.setAttribute("id", "randornot");
 
 	var r = document.createElement("input");
@@ -34,20 +34,18 @@
 	nrl.innerHTML = "In original order";
 
 	var sub = document.createElement("button");
-	sub.setAttribute("onclick", "submit()")
+	sub.setAttribute("onclick", "hhh()")
 	sub.innerHTML = "SUBMIT";
-
 
 	f.append(r, rl, nr, nrl, sub);
 	document.body.append(f);
 
-	function submit() {
-	alert(document.querySelectorAll('input[name="rand"]').length);
+	function hhh() {
+	
 	for (var i = 0, length = document.getElementsByName("rand").length; i < length; i++) {
-	   alert(document.querySelectorAll('input[name="rand"]')[1].checked) 
+	   alert(document.querySelectorAll('input[name="rand"]')[i].checked) 
 		}
 	}
-	
 	</script>
 </body>
 </html>
