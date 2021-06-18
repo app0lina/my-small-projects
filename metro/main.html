@@ -1,1 +1,52 @@
-kk
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Метро Питера - Игра</title>
+	<link rel="icon" href="logo.png">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+	<!-- <script type="text/javascript" src="scc.js"></script> -->
+	<script type="text/javascript">
+		var f = document.createElement("p");
+	f.setAttribute("id", "randornot");
+
+	var r = document.createElement("input");
+
+	r.setAttribute("type", "radio");
+	r.setAttribute("id", "random");
+	r.setAttribute("name", "rand");
+	r.setAttribute("value", "In random order");
+
+	var rl = document.createElement("label");
+	rl.setAttribute("for", "random");
+	rl.innerHTML = "In random order";
+
+	var nr = document.createElement("input");
+
+	nr.setAttribute("type", "radio");
+	nr.setAttribute("id", "notrandom");
+	nr.setAttribute("name", "rand");
+
+	var nrl = document.createElement("label");
+	nrl.setAttribute("for", "random")
+	nrl.innerHTML = "In original order";
+
+	var sub = document.createElement("button");
+	sub.setAttribute("onclick", "submit()")
+	sub.innerHTML = "SUBMIT";
+
+
+	f.append(r, rl, nr, nrl, sub);
+	document.body.append(f);
+
+	function submit() {
+	alert(document.querySelectorAll('input[name="rand"]').length);
+	for (var i = 0, length = document.getElementsByName("rand").length; i < length; i++) {
+	   alert(document.querySelectorAll('input[name="rand"]')[1].checked) 
+		}
+	}
+	</script>
+</body>
+</html>
