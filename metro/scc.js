@@ -75,7 +75,6 @@ var f = document.createElement("div");
 				// alert(document.getElementsByName("rand")[i].id)
 				uron = document.getElementsByName("rand")[i].id;
 			}
-		
 		}
 		if(uron == undefined) {
 			alert("Choose if to ask you randomly or in order!")
