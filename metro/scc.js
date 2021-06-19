@@ -68,15 +68,20 @@ var f = document.createElement("div");
 	var chbr; //user chosed branches
 	var ubr = []; //user branch
 
+	function rand(min, max) {
+      return (Math.floor(Math.random() * (max - min)) + min);
+    };
+
 	function start(){
+		
 		if(uron == "random") {
 			var nql = nq; //number questions left
 			var tb = document.createElement("table");
 			var ques = document.createElement("div");
 			ques.setAttribute("id", "q");
-			document.body.append(ques);
+			ques.innerHTML = 
 			q.setAttribute("class", "question");
-			
+			table.append(ques)
 		} else {
 
 		}
