@@ -85,15 +85,19 @@ var f = document.createElement("div");
 			var tb = document.createElement("table");
 			var tr = document.createElement("tr");
 			var td = document.createElement("td");
-			td.innerHTML = "test";
-			tr.append(td)
-			for(var t =0;t<ubr.length;t++){
-				td = document.createElement("td");
-				td.innerHTML = t;
-				tr.append(td)
-			}
-			tr.append(td)
-			tb.append(tr);
+			for(var t = 0;t<ubr.length;t++){
+				if(tr.children.length < 3){
+					td = document.createElement("td")
+					td.innerHTML = "M"+ubr[t].slice(1);
+					tr.append(td);
+					td = document.createElement("td");
+				} else {
+					tb.append(tr);
+					tr = createElement("tr");
+				}
+				
+			} 
+		
 			document.body.append(tb)
 		} 
 	}
