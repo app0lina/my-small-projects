@@ -44,10 +44,10 @@ var f = document.createElement("div");
 	sub.innerHTML = "SUBMIT";
 
 	f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
-	document.body.append(f);
+	//document.body.append(f);
 
 	var numques = document.createElement("select");
-	document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
+	//document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 
 	numques.setAttribute("id", "nques");
 	for(var y = 2; y<=20;y++){
@@ -69,46 +69,39 @@ var f = document.createElement("div");
 		curl.innerHTML = all[j][0]; //m1, m2...
 		br.append(cur, curl, document.createElement("br"))
 	}
-	document.body.append(br, document.createElement("br"), sub)
+	//document.body.append(br, document.createElement("br"), sub)
 
-	var uron; //user random or not
-	var nq; //number questions
-	var ubr = []; //user branch
+	var uron = "random"; //user random or not
+	var nq = 10; //number questions
+	var ubr = ["m1", "m3", "m4"]; //user branch
 
 	function rand(min, max) {
       return (Math.floor(Math.random() * (max - min)) + min);
     };
-	var tr;
-	var td;
+	
 	function start(){
-
 		if(uron == "random") {
 			var nql = nq; //number questions left
 			var tb = document.createElement("table");
-			var ques = document.createElement("td");
-			ques.setAttribute("id", "q");
-			var ubrcur = ubr[rand(0, ubr.length)];
-			ques.innerHTML = brs[ubrcur][rand(0, brs[ubrcur].length)];
-			ques.setAttribute("class", "question");
-			tr = document.createElement("tr");
-			tb.append(ques);
-			for(var t = 0; t<ubr.length;t++){
+			var tr = document.createElement("tr");
+			var td = document.createElement("td");
+			td.innerHTML = "test";
+			tr.append(td)
+			for(var t =0;t<ubr.length;t++){
 				td = document.createElement("td");
-				td.innerHTML = "M"+ubr[t].slice(1);
-				if(tr.children.length < 2){
-					tr.append(td)
-				} else {
-					tb.append(tr)
-					tr = document.createElement("tr")
-				}
+				td.innerHTML = t;
+				tr.append(td)
 			}
-			
+			tr.append(td)
+			tb.append(tr);
 			document.body.append(tb)
 		} 
 	}
 	// function nextques ??? (){
 	// 	
 	// }
+
+	start();
 
 	function hhh() {
 		
