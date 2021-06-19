@@ -70,6 +70,12 @@ var f = document.createElement("div");
 
 	function start(){
 		if(uron == "random") {
+			var nql = nq; //number questions left
+			var tb = document.createElement("table");
+			var ques = document.createElement("div");
+			ques.setAttribute("id", "q");
+			document.body.append(ques);
+			q.setAttribute("class", "question");
 			
 		} else {
 
