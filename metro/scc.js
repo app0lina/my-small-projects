@@ -6,6 +6,14 @@ var m5 = ["M5", "purple", "Комендантский проспект", "Ста
 var all = [];
 all.push(m1, m2, m3, m4, m5);
 
+var brs = {
+	m1: ["Девяткино", "Гражданский проспект", "Академическая", "Политехническая", "Площадь Мужества", "Лесная", "Выборгская", "Площадь Ленина", "Чернышевская", "Площадб Восстания", "Владимирская", "Пушкинская", "Технологический Институт", "Балтийская", "Нарвская", "Кировский завод", "Автово", "Лененский проспект", "Проспект ветеранов"],
+	m2: ["Парнас", "Проспект просвещения", "Озерки", "Удельная", "Пионерская", "Чёрная речка", "Петроградская", "Горьковская", "Невский проспект", "Сенная площядь", "Технологический Институт", "Фрунзенская", "Московские ворота", "Электросила", "Парк попеды", "Московская", "Звёздная", "Купчино"], 
+	m3: ["Беговая", "Ново-крестовкая", "Приморская", "Василеостровская", "Гостинный двор", "Маяковская", "Площадь Александра Невского", "Елизаровская", "Ломоносовская", "Пролетарская", "Обухово", "Рыбатское"],
+	m4: ["Улица Дыбенко", "Проспект Большевиков", "Ладожская", "Новочеркасская", "Площадь Александра Невского", "Лиговский проспект", "Достоевская", "Спасская"],
+	m5: ["Комендантский проспект", "Старая деревня", "Крестовский отсров", "Чкаловская", "Спортивная", "Садовая", "Звенигородская", "Обводный вокзал", "Волковская", "Бухаретская", "Международная", "Проспект славы", "Дунайская", "Шушары"]
+}
+
 var f = document.createElement("div");
 	f.setAttribute("id", "randornot");
 
@@ -18,7 +26,7 @@ var f = document.createElement("div");
 
 	var rl = document.createElement("label");
 	rl.setAttribute("for", "random");
-	rl.innerHTML = "In random order";
+	rl.innerHTML = "Станции в случайном порядке";
 
 	var nr = document.createElement("input");
 
@@ -29,7 +37,7 @@ var f = document.createElement("div");
 
 	var nrl = document.createElement("label");
 	nrl.setAttribute("for", "random")
-	nrl.innerHTML = "In original order";
+	nrl.innerHTML = "Memorize";
 
 	var sub = document.createElement("button");
 	sub.setAttribute("onclick", "hhh()")
@@ -54,7 +62,7 @@ var f = document.createElement("div");
 	for(var j = 0; j<all.length;j++){
 		var cur = document.createElement("input");
 		cur.setAttribute("type", "checkbox");
-		cur.setAttribute("id", all[j][0]);
+		cur.setAttribute("id", "m"+all[j][0].slice(1));
 		var curl = document.createElement("label");
 		
 		curl.setAttribute("style", "color:"+all[j][1]+";");
@@ -65,27 +73,42 @@ var f = document.createElement("div");
 
 	var uron; //user random or not
 	var nq; //number questions
-	var chbr; //user chosed branches
 	var ubr = []; //user branch
 
 	function rand(min, max) {
       return (Math.floor(Math.random() * (max - min)) + min);
     };
-
+	var tr;
+	var td;
 	function start(){
-		
+
 		if(uron == "random") {
 			var nql = nq; //number questions left
 			var tb = document.createElement("table");
-			var ques = document.createElement("div");
+			var ques = document.createElement("td");
 			ques.setAttribute("id", "q");
-			ques.innerHTML = 
-			q.setAttribute("class", "question");
-			table.append(ques)
-		} else {
-
-		}
+			var ubrcur = ubr[rand(0, ubr.length)];
+			ques.innerHTML = brs[ubrcur][rand(0, brs[ubrcur].length)];
+			ques.setAttribute("class", "question");
+			tr = document.createElement("tr");
+			tb.append(ques);
+			for(var t = 0; t<ubr.length;t++){
+				td = document.createElement("td");
+				td.innerHTML = "M"+ubr[t].slice(1);
+				if(tr.children.length < 2){
+					tr.append(td)
+				} else {
+					tb.append(tr)
+					tr = document.createElement("tr")
+				}
+			}
+			
+			document.body.append(tb)
+		} 
 	}
+	// function nextques ??? (){
+	// 	
+	// }
 
 	function hhh() {
 		
@@ -100,13 +123,13 @@ var f = document.createElement("div");
 		} else {
 			nq = Number(nques.value.slice(2));
 			for(var h = 1; h<6; h++){
-				if(document.getElementById("M"+h).checked){
-					// alert("M"+h);
-					ubr.push("M"+h)
+				if(document.getElementById("m"+h).checked){
+					
+					ubr.push("m"+h)
 				}
 			}
-			if(ubr.length<2){
-				alert("To play you have to select more than 1 branch!")
+			if(ubr.length<1){
+				alert("To play you have to select at least 1 branch!")
 				ubr = [];
 			} else {
 				document.body.innerHTML = "";
