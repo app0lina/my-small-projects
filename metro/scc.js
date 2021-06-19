@@ -78,7 +78,7 @@ var f = document.createElement("div");
 		
 		}
 		if(uron == undefined) {
-			alert("Ch")
+			alert("Choose if to ask you randomly or in order!")
 		}
 		nq = Number(nques.value.slice(2));
 		// alert(nq);
@@ -89,11 +89,5 @@ var f = document.createElement("div");
 			}
 		}
 
-
-		
 	}
 
-
-var mig = setTimeout(function(){
-	document.getElementsByName("rand").style.color = "red"
-})
