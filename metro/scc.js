@@ -42,7 +42,7 @@ var f = document.createElement("div");
 	document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 
 	numques.setAttribute("id", "nques");
-	for(var y = 2; y<=10;y++){
+	for(var y = 2; y<=20;y++){
 		var op = document.createElement("option");
 		op.setAttribute("value", "op"+y);
 		op.innerHTML = y;
@@ -56,7 +56,8 @@ var f = document.createElement("div");
 		cur.setAttribute("type", "checkbox");
 		cur.setAttribute("id", all[j][0]);
 		var curl = document.createElement("label");
-		curl
+		var real = j+1;
+		curl.setAttribute("class", "m"+real)
 		curl.innerHTML = all[j][0]; //m1, m2...
 		br.append(cur, curl, document.createElement("br"))
 	}
@@ -66,6 +67,10 @@ var f = document.createElement("div");
 	var nq; //number questions
 	var chbr; //user chosed branches
 	var ubr = []; //user branch
+
+	function start(){
+
+	}
 
 	function hhh() {
 		
@@ -86,8 +91,11 @@ var f = document.createElement("div");
 				}
 			}
 			if(ubr.length<2){
-				ubr = [];
 				alert("To play you have to select more than 1 branch!")
+				ubr = [];
+			} else {
+				document.body.innerHTML = "";
+
 			}
 		}
 	}
