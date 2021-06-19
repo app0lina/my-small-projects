@@ -64,27 +64,31 @@ var f = document.createElement("div");
 
 	var uron; //user random or not
 	var nq; //number questions
-	var chbr; //user choosed branches
+	var chbr; //user chosed branches
 	var ubr = []; //user branch
 
 	function hhh() {
 		
 		for (var i = 0, length = document.getElementsByName("rand").length; i < length; i++) {
 			if(document.getElementsByName("rand")[i].checked){
-				// alert(document.getElementsByName("rand")[i].id)
 				uron = document.getElementsByName("rand")[i].id;
 			}
 		}
-		nq = Number(nques.value.slice(2));
-		// alert(nq);
-		for(var h = 1; h<5; h++){
-			if(document.getElementById("M"+h).checked){
-				// alert("M"+h);
-				ubr.push("M"+h)
+
+		if(uron == undefined) {
+			alert("Choose if to ask you randomly or in order!")
+		} else {
+			nq = Number(nques.value.slice(2));
+			for(var h = 1; h<5; h++){
+				if(document.getElementById("M"+h).checked){
+					// alert("M"+h);
+					ubr.push("M"+h)
+				}
+			}
+			if(ubr.length<2){
+				ubr = [];
+				alert("To play you have to select more than 1 branch!")
 			}
 		}
-
-		document.body.innerHTML = "";
-//random chenage
-		
 	}
+
