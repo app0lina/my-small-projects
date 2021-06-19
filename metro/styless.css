@@ -1,9 +1,12 @@
-.m1 {
-  color: red;
+body {
+  margin: 20px;
 }
-.m2 {
-  color: blue;
+
+.question {
+  padding: ;
 }
-.m3 {
-  
+
+table {
+  border: 1px black solid;
+  border-collapse: collapse;
 }
