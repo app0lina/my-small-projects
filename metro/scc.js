@@ -78,29 +78,42 @@ var f = document.createElement("div");
 	function rand(min, max) {
       return (Math.floor(Math.random() * (max - min)) + min);
     };
-	
+	var tr = document.createElement("tr");
+	var TD = document.createElement("td");
+	var tb = document.createElement("table");
 	function start(){
-		if(uron == "random") {
+		// if(uron == "random") {
 			var nql = nq; //number questions left
-			var tb = document.createElement("table");
-			var tr = document.createElement("tr");
-			var td = document.createElement("td");
-			for(var t = 0;t<ubr.length;t++){
-				if(tr.children.length < 3){
-					td = document.createElement("td")
-					td.innerHTML = "M"+ubr[t].slice(1);
-					tr.append(td);
-					td = document.createElement("td");
+			var ch = 0; // children;
+
+			for(var t = 0; t < ubr.length; t++){
+				alert("ch1="+ch)
+				alert("children length "+tr.children.length)
+				if(tr.children.length < 2) {
+					TD.innerHTML = "M"+ubr[t].slice(1);
+					alert(TD.innerHTML);
+					tr.append(TD);
+					TD = document.createElement("td");
+					ch++;
+					alert("ch2="+ch);
+
+					alert("ch == ubr.length "+ (ch == ubr.length))
+					if(ch == ubr.length){
+						alert("ch == ubr.length "+ch == ubr.length)
+						tb.append(tr);
+						ch = 0;
+					}
 				} else {
+					alert("else "+tr.children[1].innerHTML);
 					tb.append(tr);
-					tr = createElement("tr");
-				}
-				
-			} 
-		
-			document.body.append(tb)
-		} 
-	}
+					console.log(tb.children);
+					tr = undefined;
+					tr = document.createElement("tr")
+				};
+			};
+			document.body.append(tb);
+		}
+	//}
 	// function nextques ??? (){
 	// 	
 	// }
