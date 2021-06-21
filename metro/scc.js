@@ -101,6 +101,7 @@ var f = document.createElement("div");
 					alert("else worked");
 					tr.append(td);
 					alert("tr children = "+tr.children[0].innerHTML);
+					if()
 				}
 				td = document.createElement("td");
 			}
