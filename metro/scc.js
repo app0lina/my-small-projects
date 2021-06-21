@@ -44,10 +44,10 @@ var f = document.createElement("div");
 	sub.innerHTML = "SUBMIT";
 
 	f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
-	//document.body.append(f);
+	document.body.append(f);
 
 	var numques = document.createElement("select");
-	//document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
+	document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 
 	numques.setAttribute("id", "nques");
 	for(var y = 2; y<=20;y++){
@@ -69,22 +69,30 @@ var f = document.createElement("div");
 		curl.innerHTML = all[j][0]; //m1, m2...
 		br.append(cur, curl, document.createElement("br"))
 	}
-	//document.body.append(br, document.createElement("br"), sub)
+	document.body.append(br, document.createElement("br"), sub)
 
-	var uron = "random"; //user random or not
-	var nq = 10; //number questions
-	var ubr = ["m1", "m3", "m3"]; //user branch
+	var uron; //user random or not
+	var nq; //number questions
+	var ubr = []; //user branch
 
 	function rand(min, max) {
       return (Math.floor(Math.random() * (max - min)) + min);
     };
+
 	var tr = document.createElement("tr");
 	var td = document.createElement("td");
 	var tb = document.createElement("table");
 	function start(){
 		if(uron == "random"){
+			var num = rand(0, ubr.length);
+			var cur = brs[ubr[num]];
+			td.innerHTML = cur[rand(0, cur.length)];
+			tr.append(td);
+			tb.append(tr)
+			tr = document.createElement("tr");
+			td = document.createElement("td");
 			for(var i = 0; i<ubr.length; i++){
-				td.innerHTML = ubr[i];
+				td.innerHTML = "M"+ubr[i].slice(1);
 				if(tr.children.length >= 2){
 					tb.append(tr);
 					tr = document.createElement("tr");
@@ -105,7 +113,7 @@ var f = document.createElement("div");
 	// 	
 	// }
 
-	start();
+
 
 	function hhh() {
 		
