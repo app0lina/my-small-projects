@@ -1,10 +1,18 @@
 var m1 = ["M1", "red", "Девяткино", "Гражданский проспект", "Академическая", "Политехническая", "Площадь Мужества", "Лесная", "Выборгская", "Площадь Ленина", "Чернышевская", "Площадб Восстания", "Владимирская", "Пушкинская", "Технологический Институт", "Балтийская", "Нарвская", "Кировский завод", "Автово", "Лененский проспект", "Проспект ветеранов"];
 var m2 = ["M2", "blue", "Парнас", "Проспект просвещения", "Озерки", "Удельная", "Пионерская", "Чёрная речка", "Петроградская", "Горьковская", "Невский проспект", "Сенная площядь", "Технологический Институт", "Фрунзенская", "Московские ворота", "Электросила", "Парк попеды", "Московская", "Звёздная", "Купчино"];
 var m3 = ["M3", "green", "Беговая", "Ново-крестовкая", "Приморская", "Василеостровская", "Гостинный двор", "Маяковская", "Площадь Александра Невского", "Елизаровская", "Ломоносовская", "Пролетарская", "Обухово", "Рыбатское"];
-var m4 = ["M4", "yellow", "Улица Дыбенко", "Проспект Большевиков", "Ладожская", "Новочеркасская", "Площадь Александра Невского", "Лиговский проспект", "Достоевская", "Спасская"];
+var m4 = ["M4", "#e3cf36", "Улица Дыбенко", "Проспект Большевиков", "Ладожская", "Новочеркасская", "Площадь Александра Невского", "Лиговский проспект", "Достоевская", "Спасская"];
 var m5 = ["M5", "purple", "Комендантский проспект", "Старая деревня", "Крестовский отсров", "Чкаловская", "Спортивная", "Садовая", "Звенигородская", "Обводный вокзал", "Волковская", "Бухаретская", "Международная", "Проспект славы", "Дунайская", "Шушары"];
 var all = [];
 all.push(m1, m2, m3, m4, m5);
+
+var brs = {
+	m1: ["#e66565", "Девяткино", "Гражданский проспект", "Академическая", "Политехническая", "Площадь Мужества", "Лесная", "Выборгская", "Площадь Ленина", "Чернышевская", "Площадб Восстания", "Владимирская", "Пушкинская", "Технологический Институт", "Балтийская", "Нарвская", "Кировский завод", "Автово", "Лененский проспект", "Проспект ветеранов"],
+	m2: ["#4287f5", "Парнас", "Проспект просвещения", "Озерки", "Удельная", "Пионерская", "Чёрная речка", "Петроградская", "Горьковская", "Невский проспект", "Сенная площядь", "Технологический Институт", "Фрунзенская", "Московские ворота", "Электросила", "Парк попеды", "Московская", "Звёздная", "Купчино"], 
+	m3: ["#69e665", "Беговая", "Ново-крестовкая", "Приморская", "Василеостровская", "Гостинный двор", "Маяковская", "Площадь Александра Невского", "Елизаровская", "Ломоносовская", "Пролетарская", "Обухово", "Рыбатское"],
+	m4: ["#e6e465", "Улица Дыбенко", "Проспект Большевиков", "Ладожская", "Новочеркасская", "Площадь Александра Невского", "Лиговский проспект", "Достоевская", "Спасская"],
+	m5: ["#b065e6", "Комендантский проспект", "Старая деревня", "Крестовский отсров", "Чкаловская", "Спортивная", "Садовая", "Звенигородская", "Обводный вокзал", "Волковская", "Бухаретская", "Международная", "Проспект славы", "Дунайская", "Шушары"]
+}
 
 var f = document.createElement("div");
 	f.setAttribute("id", "randornot");
@@ -18,7 +26,7 @@ var f = document.createElement("div");
 
 	var rl = document.createElement("label");
 	rl.setAttribute("for", "random");
-	rl.innerHTML = "In random order";
+	rl.innerHTML = "Станции в случайном порядке";
 
 	var nr = document.createElement("input");
 
@@ -29,7 +37,7 @@ var f = document.createElement("div");
 
 	var nrl = document.createElement("label");
 	nrl.setAttribute("for", "random")
-	nrl.innerHTML = "In original order";
+	nrl.innerHTML = "Memorize";
 
 	var sub = document.createElement("button");
 	sub.setAttribute("onclick", "hhh()")
@@ -42,7 +50,7 @@ var f = document.createElement("div");
 	document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 
 	numques.setAttribute("id", "nques");
-	for(var y = 2; y<=10;y++){
+	for(var y = 2; y<=20;y++){
 		var op = document.createElement("option");
 		op.setAttribute("value", "op"+y);
 		op.innerHTML = y;
@@ -54,9 +62,10 @@ var f = document.createElement("div");
 	for(var j = 0; j<all.length;j++){
 		var cur = document.createElement("input");
 		cur.setAttribute("type", "checkbox");
-		cur.setAttribute("id", all[j][0]);
+		cur.setAttribute("id", "m"+all[j][0].slice(1));
 		var curl = document.createElement("label");
-		curl
+		
+		curl.setAttribute("style", "color:"+all[j][1]+";");
 		curl.innerHTML = all[j][0]; //m1, m2...
 		br.append(cur, curl, document.createElement("br"))
 	}
@@ -64,8 +73,52 @@ var f = document.createElement("div");
 
 	var uron; //user random or not
 	var nq; //number questions
-	var chbr; //user chosed branches
 	var ubr = []; //user branch
+
+	function rand(min, max) {
+      return (Math.floor(Math.random() * (max - min)) + min);
+    };
+
+	var tr = document.createElement("tr");
+	var td = document.createElement("td");
+	var tb = document.createElement("table");
+	function start(){
+		if(uron == "random"){
+			var num = rand(0, ubr.length);
+			var cur = brs[ubr[num]];
+			td.innerHTML = cur[rand(1, cur.length)];
+			td.setAttribute("colspan", 2);
+			td.setAttribute("id", "q")
+			tr.append(td);
+			tb.append(tr);
+			tr = document.createElement("tr");
+			td = document.createElement("td");
+			for(var i = 0; i<ubr.length; i++){
+				var but = document.createElement("button");
+				but.innerHTML = "M"+ubr[i].slice(1);
+				td.append(but);
+				td.style.backgroundColor = brs[ubr[i]][0]
+				if(tr.children.length >= 2){
+					tb.append(tr);
+					tr = document.createElement("tr");
+					i--;
+				} else {
+					tr.append(td);
+					if(ubr[i] == ubr[ubr.length-1]) {
+						tb.append(tr)
+					}
+				}
+				td = document.createElement("td");
+			}
+			document.body.append(tb)
+		}
+	}
+	//}
+	// function nextques ??? (){
+	// 	
+	// }
+
+
 
 	function hhh() {
 		
@@ -79,15 +132,18 @@ var f = document.createElement("div");
 			alert("Choose if to ask you randomly or in order!")
 		} else {
 			nq = Number(nques.value.slice(2));
-			for(var h = 1; h<5; h++){
-				if(document.getElementById("M"+h).checked){
-					// alert("M"+h);
-					ubr.push("M"+h)
+			for(var h = 1; h<6; h++){
+				if(document.getElementById("m"+h).checked){
+					
+					ubr.push("m"+h)
 				}
 			}
-			if(ubr.length<2){
+			if(ubr.length<1){
+				alert("To play you have to select at least 1 branch!")
 				ubr = [];
-				alert("To play you have to select more than 1 branch!")
+			} else {
+				document.body.innerHTML = "";
+				start()
 			}
 		}
 	}

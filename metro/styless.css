@@ -1,4 +1,21 @@
-* {
-  display: flex;
-  justify-content:space-around;
+body {
+  margin: 20px;
+}
+
+.question {
+  padding: 10px;
+}
+
+table {
+  
+  border-collapse: collapse;
+
+}
+
+td {
+  padding: 10px;
+}
+
+table, td {
+  border: 1px black solid;
 }
