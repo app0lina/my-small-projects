@@ -73,7 +73,7 @@ var f = document.createElement("div");
 
 	var uron = "random"; //user random or not
 	var nq = 10; //number questions
-	var ubr = ["m1", "m3", "m4", "m5"]; //user branch
+	var ubr = ["m1", "m3", "m3"]; //user branch
 
 	function rand(min, max) {
       return (Math.floor(Math.random() * (max - min)) + min);
@@ -85,23 +85,15 @@ var f = document.createElement("div");
 		if(uron == "random"){
 			for(var i = 0; i<ubr.length; i++){
 				td.innerHTML = ubr[i];
-				alert(td.innerHTML);
-				alert("i="+i)
 				if(tr.children.length >= 2){
-					alert("if worked")
 					tb.append(tr);
 					tr = document.createElement("tr");
-					if(ubr[i] == ubr[ubr.length-1]){
-						tr.append(td);
-						tb.append(tr);
-						tr = document.createElement("tr");
-					}
 					i--;
 				} else {
-					alert("else worked");
 					tr.append(td);
-					alert("tr children = "+tr.children[0].innerHTML);
-					if()
+					if(ubr[i] == ubr[ubr.length-1]) {
+						tb.append(tr)
+					}
 				}
 				td = document.createElement("td");
 			}
