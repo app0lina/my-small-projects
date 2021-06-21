@@ -83,8 +83,14 @@ var f = document.createElement("div");
 	var td = document.createElement("td");
 	var tb = document.createElement("table");
 	var cor;
+	var numq;
 	function start(){
 		if(uron == "random"){
+			numq = nq;
+			var nquesEl = document.createElement("div");
+			nquesEl.setAttribute("id", "nques");
+			nquesEl.innerHTML = numq+"/"+nq;
+			document.body.append(nquesEl)
 			var num = rand(0, ubr.length);
 			var cur = brs[ubr[num]];
 			td.innerHTML = cur[rand(1, cur.length)];
@@ -124,6 +130,8 @@ var f = document.createElement("div");
 		var cur = brs[ubr[num]];
 		q.innerHTML = cur[rand(1, cur.length)];
 		cor = ubr[num];
+		numq--;
+		nques.innerHTML = numq+"/"+nq;
 	}
 
 	function check(usbranch){
