@@ -7,10 +7,10 @@ var all = [];
 all.push(m1, m2, m3, m4, m5);
 
 var brs = {
-	m1: ["#e66565", "Девяткино", "Гражданский проспект", "Академическая", "Политехническая", "Площадь Мужества", "Лесная", "Выборгская", "Площадь Ленина", "Чернышевская", "Площадб Восстания", "Владимирская", "Пушкинская", "Технологический Институт", "Балтийская", "Нарвская", "Кировский завод", "Автово", "Лененский проспект", "Проспект ветеранов"],
-	m2: ["#4287f5", "Парнас", "Проспект просвещения", "Озерки", "Удельная", "Пионерская", "Чёрная речка", "Петроградская", "Горьковская", "Невский проспект", "Сенная площядь", "Технологический Институт", "Фрунзенская", "Московские ворота", "Электросила", "Парк попеды", "Московская", "Звёздная", "Купчино"], 
-	m3: ["#69e665", "Беговая", "Ново-крестовкая", "Приморская", "Василеостровская", "Гостинный двор", "Маяковская", "Площадь Александра Невского", "Елизаровская", "Ломоносовская", "Пролетарская", "Обухово", "Рыбатское"],
-	m4: ["#e6e465", "Улица Дыбенко", "Проспект Большевиков", "Ладожская", "Новочеркасская", "Площадь Александра Невского", "Лиговский проспект", "Достоевская", "Спасская"],
+	m1: ["#e66565", "Девяткино", "Гражданский проспект", "Академическая", "Политехническая", "Площадь Мужества", "Лесная", "Выборгская", "Площадь Ленина", "Чернышевская", "Площадб Восстания", "Владимирская", "Пушкинская", "Технологический Институт 1", "Балтийская", "Нарвская", "Кировский завод", "Автово", "Лененский проспект", "Проспект ветеранов"],
+	m2: ["#4287f5", "Парнас", "Проспект просвещения", "Озерки", "Удельная", "Пионерская", "Чёрная речка", "Петроградская", "Горьковская", "Невский проспект", "Сенная площадь", "Технологический Институт 2", "Фрунзенская", "Московские ворота", "Электросила", "Парк победы", "Московская", "Звёздная", "Купчино"], 
+	m3: ["#69e665", "Беговая", "Ново-крестовкая", "Приморская", "Василеостровская", "Гостинный двор", "Маяковская", "Площадь Александра Невского 1", "Елизаровская", "Ломоносовская", "Пролетарская", "Обухово", "Рыбатское"],
+	m4: ["#e6e465", "Улица Дыбенко", "Проспект Большевиков", "Ладожская", "Новочеркасская", "Площадь Александра Невского 2", "Лиговский проспект", "Достоевская", "Спасская"],
 	m5: ["#b065e6", "Комендантский проспект", "Старая деревня", "Крестовский отсров", "Чкаловская", "Спортивная", "Садовая", "Звенигородская", "Обводный вокзал", "Волковская", "Бухаретская", "Международная", "Проспект славы", "Дунайская", "Шушары"]
 }
 
@@ -82,13 +82,21 @@ var f = document.createElement("div");
 	var tr = document.createElement("tr");
 	var td = document.createElement("td");
 	var tb = document.createElement("table");
+	var cor;
+	var numq;
 	function start(){
 		if(uron == "random"){
+			numq = nq;
+			var nquesEl = document.createElement("div");
+			nquesEl.setAttribute("id", "nques");
+			nquesEl.innerHTML = numq+"/"+nq;
+			document.body.append(nquesEl)
 			var num = rand(0, ubr.length);
 			var cur = brs[ubr[num]];
 			td.innerHTML = cur[rand(1, cur.length)];
 			td.setAttribute("colspan", 2);
-			td.setAttribute("id", "q")
+			td.setAttribute("id", "q");
+			cor = ubr[num];
 			tr.append(td);
 			tb.append(tr);
 			tr = document.createElement("tr");
@@ -96,8 +104,9 @@ var f = document.createElement("div");
 			for(var i = 0; i<ubr.length; i++){
 				var but = document.createElement("button");
 				but.innerHTML = "M"+ubr[i].slice(1);
+				but.setAttribute("onclick", "check('"+ubr[i]+"')")
 				td.append(but);
-				td.style.backgroundColor = brs[ubr[i]][0]
+				td.style.backgroundColor = brs[ubr[i]][0];
 				if(tr.children.length >= 2){
 					tb.append(tr);
 					tr = document.createElement("tr");
@@ -111,12 +120,30 @@ var f = document.createElement("div");
 				td = document.createElement("td");
 			}
 			document.body.append(tb)
+		} else {
+
 		}
 	}
-	//}
-	// function nextques ??? (){
-	// 	
-	// }
+	
+	function nextques() {
+		var num = rand(0, ubr.length);
+		var cur = brs[ubr[num]];
+		q.innerHTML = cur[rand(1, cur.length)];
+		cor = ubr[num];
+		numq--;
+		nques.innerHTML = numq+"/"+nq;
+	}
+
+	function check(usbranch){
+		if(usbranch == cor){
+			alert("correct");
+			nextques();
+		} else {
+			alert("nonono");
+			nextques();
+		}
+
+	}
 
 
 
@@ -138,8 +165,8 @@ var f = document.createElement("div");
 					ubr.push("m"+h)
 				}
 			}
-			if(ubr.length<1){
-				alert("To play you have to select at least 1 branch!")
+			if(ubr.length<2){
+				alert("To play you have to select at least 2 branches!")
 				ubr = [];
 			} else {
 				document.body.innerHTML = "";
