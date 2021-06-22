@@ -125,8 +125,23 @@ var f = document.createElement("div");
 		} else {
 			var prev = document.createElement("div");
 			prev.innerHTML = brs[ubr[0]][1];
-			prev.setAttribute("class", "previ")
-			document.body.append(prev)
+			prev.setAttribute("class", "side");
+			prev.setAttribute("id", "p");
+			document.body.append(prev);
+
+			var main = document.createElement("div");
+			main.innerHTML = brs[ubr[0]][2];
+			main.setAttribute("class", "main");
+			main.setAttribute("id", "m");
+			document.body.append(main);
+
+			var next = document.createElement("div");
+			next.innerHTML = brs[ubr[0]][3];
+			next.setAttribute("class", "side");
+			next.setAttribute("id", "n");
+			document.body.append(next);
+			
+
 		}
 	}
 	
