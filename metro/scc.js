@@ -7,11 +7,11 @@ var all = [];
 all.push(m1, m2, m3, m4, m5);
 
 var brs = {
-	m1: ["#e66565", "Девяткино", "Гражданский проспект", "Академическая", "Политехническая", "Площадь Мужества", "Лесная", "Выборгская", "Площадь Ленина", "Чернышевская", "Площадб Восстания", "Владимирская", "Пушкинская", "Технологический Институт 1", "Балтийская", "Нарвская", "Кировский завод", "Автово", "Лененский проспект", "Проспект ветеранов"],
-	m2: ["#4287f5", "Парнас", "Проспект просвещения", "Озерки", "Удельная", "Пионерская", "Чёрная речка", "Петроградская", "Горьковская", "Невский проспект", "Сенная площадь", "Технологический Институт 2", "Фрунзенская", "Московские ворота", "Электросила", "Парк победы", "Московская", "Звёздная", "Купчино"], 
-	m3: ["#69e665", "Беговая", "Ново-крестовкая", "Приморская", "Василеостровская", "Гостинный двор", "Маяковская", "Площадь Александра Невского 1", "Елизаровская", "Ломоносовская", "Пролетарская", "Обухово", "Рыбатское"],
-	m4: ["#e6e465", "Улица Дыбенко", "Проспект Большевиков", "Ладожская", "Новочеркасская", "Площадь Александра Невского 2", "Лиговский проспект", "Достоевская", "Спасская"],
-	m5: ["#b065e6", "Комендантский проспект", "Старая деревня", "Крестовский отсров", "Чкаловская", "Спортивная", "Садовая", "Звенигородская", "Обводный вокзал", "Волковская", "Бухаретская", "Международная", "Проспект славы", "Дунайская", "Шушары"]
+	m1: ["#fa8787", "Девяткино", "Гражданский проспект", "Академическая", "Политехническая", "Площадь Мужества", "Лесная", "Выборгская", "Площадь Ленина", "Чернышевская", "Площадб Восстания", "Владимирская", "Пушкинская", "Технологический Институт 1", "Балтийская", "Нарвская", "Кировский завод", "Автово", "Лененский проспект", "Проспект ветеранов"],
+	m2: ["#87a9fa", "Парнас", "Проспект просвещения", "Озерки", "Удельная", "Пионерская", "Чёрная речка", "Петроградская", "Горьковская", "Невский проспект", "Сенная площадь", "Технологический Институт 2", "Фрунзенская", "Московские ворота", "Электросила", "Парк победы", "Московская", "Звёздная", "Купчино"], 
+	m3: ["#87faa8", "Беговая", "Ново-крестовкая", "Приморская", "Василеостровская", "Гостинный двор", "Маяковская", "Площадь Александра Невского 1", "Елизаровская", "Ломоносовская", "Пролетарская", "Обухово", "Рыбатское"],
+	m4: ["#faed87", "Улица Дыбенко", "Проспект Большевиков", "Ладожская", "Новочеркасская", "Площадь Александра Невского 2", "Лиговский проспект", "Достоевская", "Спасская"],
+	m5: ["#ca87fa", "Комендантский проспект", "Старая деревня", "Крестовский отсров", "Чкаловская", "Спортивная", "Садовая", "Звенигородская", "Обводный вокзал", "Волковская", "Бухаретская", "Международная", "Проспект славы", "Дунайская", "Шушары"]
 }
 
 var f = document.createElement("div");
@@ -44,10 +44,10 @@ var f = document.createElement("div");
 	sub.innerHTML = "SUBMIT";
 
 	f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
-	document.body.append(f);
+	//document.body.append(f);
 
 	var numques = document.createElement("select");
-	document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
+	//document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 
 	numques.setAttribute("id", "nques");
 	for(var y = 2; y<=20;y++){
@@ -69,11 +69,11 @@ var f = document.createElement("div");
 		curl.innerHTML = all[j][0]; //m1, m2...
 		br.append(cur, curl, document.createElement("br"))
 	}
-	document.body.append(br, document.createElement("br"), sub)
+	//document.body.append(br, document.createElement("br"), sub)
 
-	var uron; //user random or not
-	var nq; //number questions
-	var ubr = []; //user branch
+	var uron = "random"; //user random or not
+	var nq = 10; //number questions
+	var ubr = ["m1", "m2", "m3", "m4", "m5"]; //user branch
 
 	function rand(min, max) {
       return (Math.floor(Math.random() * (max - min)) + min);
@@ -106,6 +106,7 @@ var f = document.createElement("div");
 				but.innerHTML = "M"+ubr[i].slice(1);
 				but.setAttribute("onclick", "check('"+ubr[i]+"')")
 				td.append(but);
+				td.setAttribute("id", ubr[i])
 				td.style.backgroundColor = brs[ubr[i]][0];
 				if(tr.children.length >= 2){
 					tb.append(tr);
@@ -124,6 +125,7 @@ var f = document.createElement("div");
 
 		}
 	}
+	start();
 	
 	function nextques() {
 		var num = rand(0, ubr.length);
@@ -136,16 +138,20 @@ var f = document.createElement("div");
 
 	function check(usbranch){
 		if(usbranch == cor){
-			alert("correct");
+			var kk = document.getElementById(usbranch);
+			kk.style.border = "3px solid #21b04a";
+			setTimeout(function(){kk.style.border = null}, 300)
 			nextques();
 		} else {
-			alert("nonono");
+			var qq = document.getElementById(usbranch);
+			var correct = document.getElementById(cor);
+			qq.style.border = "2px solid red";
+			correct.style.border = "3px solid #21b04a";
+			setTimeout(function(){qq.style.border = null; correct.style.border = null;}, 300)
 			nextques();
 		}
 
 	}
-
-
 
 	function hhh() {
 		
