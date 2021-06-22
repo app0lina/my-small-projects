@@ -22,35 +22,36 @@ var f = document.createElement("div");
 	r.setAttribute("type", "radio");
 	r.setAttribute("id", "random");
 	r.setAttribute("name", "rand");
-	r.setAttribute("value", "In random order");
+
 
 	var rl = document.createElement("label");
 	rl.setAttribute("for", "random");
-	rl.innerHTML = "Станции в случайном порядке";
+	rl.innerHTML = "Случайные выбранные ветки в случайном порядке";
 
 	var nr = document.createElement("input");
 
 	nr.setAttribute("type", "radio");
-	nr.setAttribute("id", "notrandom");
+	nr.setAttribute("id", "memorize");
 	nr.setAttribute("name", "rand");
-	nr.setAttribute("value", "In original order");
 
 	var nrl = document.createElement("label");
 	nrl.setAttribute("for", "random")
-	nrl.innerHTML = "Memorize";
+	nrl.innerHTML = "Запомнить";
 
 	var sub = document.createElement("button");
 	sub.setAttribute("onclick", "hhh()")
 	sub.innerHTML = "SUBMIT";
 
 	f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
-	//document.body.append(f);
+	var gamemode = document.createElement("p");
+	gamemode.innerHTML = "Выберите режим игры"
+	document.body.append(gamemode, f);
 
 	var numques = document.createElement("select");
-	//document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
+	document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 
 	numques.setAttribute("id", "nques");
-	for(var y = 2; y<=20;y++){
+	for(var y = 5; y<55;y+=5){
 		var op = document.createElement("option");
 		op.setAttribute("value", "op"+y);
 		op.innerHTML = y;
@@ -69,11 +70,11 @@ var f = document.createElement("div");
 		curl.innerHTML = all[j][0]; //m1, m2...
 		br.append(cur, curl, document.createElement("br"))
 	}
-	//document.body.append(br, document.createElement("br"), sub)
+	document.body.append(br, document.createElement("br"), sub)
 
-	var uron = "random"; //user random or not
-	var nq = 2; //number questions
-	var ubr = ["m1", "m2", "m3", "m4", "m5"]; //user branch
+	var uron; //user random or not
+	var nq; //number questions
+	var ubr = []; //user branch
 
 	function rand(min, max) {
       return (Math.floor(Math.random() * (max - min)) + min);
@@ -122,10 +123,13 @@ var f = document.createElement("div");
 			}
 			document.body.append(tb)
 		} else {
-
+			var prev = document.createElement("div");
+			prev.innerHTML = brs[ubr[0]][1];
+			prev.setAttribute("class", "previ")
+			document.body.append(prev)
 		}
 	}
-	start();
+	
 	
 	function nextques() {
 		var num = rand(0, ubr.length);
@@ -138,6 +142,7 @@ var f = document.createElement("div");
 			for(var h = 0; h<document.querySelectorAll("button").length;h++){
 				document.querySelectorAll("button")[h].setAttribute("disabled", "true")
 			}
+			q.innerHTML = "GAME OVER"
 		}
 	}
 
@@ -161,9 +166,9 @@ var f = document.createElement("div");
 
 	function hhh() {
 		
-		for (var i = 0, length = document.getElementsByName("rand").length; i < length; i++) {
-			if(document.getElementsByName("rand")[i].checked){
-				uron = document.getElementsByName("rand")[i].id;
+		for (var k = 0; k < document.getElementsByName("rand").length; k++) {
+			if(document.getElementsByName("rand")[k].checked){
+				uron = document.getElementsByName("rand")[k].id;
 			}
 		}
 
@@ -171,10 +176,9 @@ var f = document.createElement("div");
 			alert("Choose if to ask you randomly or in order!")
 		} else {
 			nq = Number(nques.value.slice(2));
-			for(var h = 1; h<6; h++){
-				if(document.getElementById("m"+h).checked){
-					
-					ubr.push("m"+h)
+			for(var b = 1; b<6; b++){
+				if(document.getElementById("m"+b).checked){
+					ubr.push("m"+b)
 				}
 			}
 			if(ubr.length<2){
