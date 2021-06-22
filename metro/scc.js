@@ -7,7 +7,7 @@ var all = [];
 all.push(m1, m2, m3, m4, m5);
 
 var brs = {
-	m1: ["#fa8787", "Девяткино", "Гражданский проспект", "Академическая", "Политехническая", "Площадь Мужества", "Лесная", "Выборгская", "Площадь Ленина", "Чернышевская", "Площадб Восстания", "Владимирская", "Пушкинская", "Технологический Институт 1", "Балтийская", "Нарвская", "Кировский завод", "Автово", "Лененский проспект", "Проспект ветеранов"],
+	m1: ["#fa8787", "Девяткино", "Гражданский проспект", "Академическая", "Политехническая", "Площадь Мужества", "Лесная", "Выборгская", "Площадь Ленина", "Чернышевская", "Площадь Восстания", "Владимирская", "Пушкинская", "Технологический Институт 1", "Балтийская", "Нарвская", "Кировский завод", "Автово", "Лененский проспект", "Проспект ветеранов"],
 	m2: ["#87a9fa", "Парнас", "Проспект просвещения", "Озерки", "Удельная", "Пионерская", "Чёрная речка", "Петроградская", "Горьковская", "Невский проспект", "Сенная площадь", "Технологический Институт 2", "Фрунзенская", "Московские ворота", "Электросила", "Парк победы", "Московская", "Звёздная", "Купчино"], 
 	m3: ["#87faa8", "Беговая", "Ново-крестовкая", "Приморская", "Василеостровская", "Гостинный двор", "Маяковская", "Площадь Александра Невского 1", "Елизаровская", "Ломоносовская", "Пролетарская", "Обухово", "Рыбатское"],
 	m4: ["#faed87", "Улица Дыбенко", "Проспект Большевиков", "Ладожская", "Новочеркасская", "Площадь Александра Невского 2", "Лиговский проспект", "Достоевская", "Спасская"],
@@ -72,7 +72,7 @@ var f = document.createElement("div");
 	//document.body.append(br, document.createElement("br"), sub)
 
 	var uron = "random"; //user random or not
-	var nq = 10; //number questions
+	var nq = 2; //number questions
 	var ubr = ["m1", "m2", "m3", "m4", "m5"]; //user branch
 
 	function rand(min, max) {
@@ -134,23 +134,29 @@ var f = document.createElement("div");
 		cor = ubr[num];
 		numq--;
 		nques.innerHTML = numq+"/"+nq;
+		if(numq == 0){
+			for(var h = 0; h<document.querySelectorAll("button").length;h++){
+				document.querySelectorAll("button")[h].setAttribute("disabled", "true")
+			}
+		}
 	}
 
 	function check(usbranch){
 		if(usbranch == cor){
 			var kk = document.getElementById(usbranch);
-			kk.style.border = "3px solid #21b04a";
+			kk.style.border = "4px solid #21b04a";
 			setTimeout(function(){kk.style.border = null}, 300)
 			nextques();
 		} else {
 			var qq = document.getElementById(usbranch);
 			var correct = document.getElementById(cor);
-			qq.style.border = "2px solid red";
-			correct.style.border = "3px solid #21b04a";
+			qq.style.border = "4px solid red";
+			correct.style.border = "4px solid #21b04a";
 			setTimeout(function(){qq.style.border = null; correct.style.border = null;}, 300)
 			nextques();
 		}
 
+		
 	}
 
 	function hhh() {
