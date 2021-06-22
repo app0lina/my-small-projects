@@ -25,3 +25,8 @@ table, td {
   height: 70px;
   width: 200px;
 }
+
+.previ {
+  border: 1px dotted black;
+  opacity: 0.5;
+}
