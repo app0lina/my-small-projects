@@ -1,3 +1,3 @@
-# first-repository-hello-world
+# my-small-projects
 just my first repository
 changes
