@@ -26,7 +26,14 @@ table, td {
   width: 200px;
 }
 
-.previ {
+.side {
   border: 1px dotted black;
   opacity: 0.5;
+  padding: 10px;
+  display: inline;
+}
+.main {
+  border: 1px solid black;
+  padding: 10px;
+  display: inline;
 }
