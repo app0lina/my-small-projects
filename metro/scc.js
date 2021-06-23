@@ -86,6 +86,7 @@ var f = document.createElement("div");
 	var cor;
 	var numq;
 	function start(){
+		alert(uron)
 		if(uron == "random"){
 			numq = nq;
 			var nquesEl = document.createElement("div");
@@ -141,7 +142,11 @@ var f = document.createElement("div");
 			next.setAttribute("id", "n");
 			document.body.append(next);
 			
-
+			var bp = document.createElement("div");
+			bp.append(document.createElement("button"));
+			bp.firstChild.innerHTML = "<";
+			bp.setAttribute("class", "but")
+			document.body.append(document.createElement("br"), document.createElement("br"), bp)
 		}
 	}
 	
