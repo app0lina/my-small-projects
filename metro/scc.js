@@ -59,13 +59,20 @@ var f = document.createElement("div");
 	}
 	var br = document.createElement("div");
 	br.setAttribute("id", "userbranch");
-	
+
+	var cur = document.createElement("input");
+	cur.setAttribute("type", "checkbox");
+	cur.setAttribute("id", "all")
+	var curl = document.createElement("label");
+	curl.innerHTML = 'Select all';
+	br.append(cur, curl, document.createElement("br"))
+
 	for(var j = 0; j<all.length;j++){
-		var cur = document.createElement("input");
+		cur = document.createElement("input");
 		cur.setAttribute("type", "checkbox");
 		cur.setAttribute("id", "m"+all[j][0].slice(1));
-		var curl = document.createElement("label");
 		
+		curl = document.createElement("label");
 		curl.setAttribute("style", "color:"+all[j][1]+";");
 		curl.innerHTML = all[j][0]; //m1, m2...
 		br.append(cur, curl, document.createElement("br"))
@@ -123,7 +130,7 @@ var f = document.createElement("div");
 				td = document.createElement("td");
 			}
 			document.body.append(tb)
-		} else {
+		} else if(uron == "memorize"){
 			var prev = document.createElement("div");
 			prev.innerHTML = brs[ubr[0]][1];
 			prev.setAttribute("class", "side");
@@ -150,7 +157,6 @@ var f = document.createElement("div");
 		}
 	}
 	
-	
 	function nextques() {
 		var num = rand(0, ubr.length);
 		var cur = brs[ubr[num]];
@@ -168,13 +174,13 @@ var f = document.createElement("div");
 
 	function check(usbranch){
 		if(usbranch == cor){
-			var kk = document.getElementById(usbranch);
+			var kk = document.getElementById(usbranch).firstChild;
 			kk.style.border = "4px solid #21b04a";
 			setTimeout(function(){kk.style.border = null}, 300)
 			nextques();
 		} else {
-			var qq = document.getElementById(usbranch);
-			var correct = document.getElementById(cor);
+			var qq = document.getElementById(usbranch).firstChild;
+			var correct = document.getElementById(cor).firstChild;
 			qq.style.border = "4px solid red";
 			correct.style.border = "4px solid #21b04a";
 			setTimeout(function(){qq.style.border = null; correct.style.border = null;}, 300)
@@ -197,11 +203,13 @@ var f = document.createElement("div");
 		} else {
 			nq = Number(nques.value.slice(2));
 			for(var b = 1; b<6; b++){
-				if(document.getElementById("m"+b).checked){
+				if(all.checked){
 					ubr.push("m"+b)
+				} else {
+					if (document.getElementById("m"+b).checked) ubr.push("m"+b)
 				}
 			}
-			if(ubr.length<2){
+			if(ubr.length<2 || all.checked == false){
 				alert("To play you have to select at least 2 branches!")
 				ubr = [];
 			} else {
