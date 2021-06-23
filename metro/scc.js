@@ -186,8 +186,6 @@ var f = document.createElement("div");
 			setTimeout(function(){qq.style.border = null; correct.style.border = null;}, 300)
 			nextques();
 		}
-
-		
 	}
 
 	function hhh() {
@@ -202,13 +200,26 @@ var f = document.createElement("div");
 			alert("Choose if to ask you randomly or in order!")
 		} else {
 			nq = Number(nques.value.slice(2));
-			for(var b = 1; b<6; b++){
-				if(all.checked){
+			if(document.getElementById("all").checked == true){
+				for(var b = 1; b<6; b++) {
 					ubr.push("m"+b)
-				} else {
+					alert("puching all checked true")
+				}
+			} else {
+				alert("pushing else all checked false")
+				for(var b = 1; b<6; b++) {
 					if (document.getElementById("m"+b).checked) ubr.push("m"+b)
+					
+
 				}
 			}
+			// for(var b = 1; b<6; b++){
+			// 	if(all.checked){
+					
+			// 	} else {
+			// 		if (document.getElementById("m"+b).checked) ubr.push("m"+b)
+			// 	}
+			// }
 			if(ubr.length<2 || all.checked == false){
 				alert("To play you have to select at least 2 branches!")
 				ubr = [];
