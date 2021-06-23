@@ -37,3 +37,6 @@ table, td {
   padding: 10px;
   display: inline;
 }
+.but {
+  border-radius: 20px;
+}
