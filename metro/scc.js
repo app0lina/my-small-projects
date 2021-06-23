@@ -203,23 +203,13 @@ var f = document.createElement("div");
 			if(document.getElementById("all").checked == true){
 				for(var b = 1; b<6; b++) {
 					ubr.push("m"+b)
-					alert("puching all checked true")
 				}
 			} else {
-				alert("pushing else all checked false")
 				for(var b = 1; b<6; b++) {
 					if (document.getElementById("m"+b).checked) ubr.push("m"+b)
-					
-
 				}
 			}
-			// for(var b = 1; b<6; b++){
-			// 	if(all.checked){
-					
-			// 	} else {
-			// 		if (document.getElementById("m"+b).checked) ubr.push("m"+b)
-			// 	}
-			// }
+
 			if(ubr.length<2 || all.checked == false){
 				alert("To play you have to select at least 2 branches!")
 				ubr = [];
