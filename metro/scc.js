@@ -143,7 +143,7 @@ function start(){
 		main.innerHTML = brs[ubr[0]][2];
 		main.setAttribute("class", "main");
 		main.setAttribute("id", "m");
-		document.body.append(main);
+		document.body.append(main)//position of the branch indicato;
 
 		var next = document.createElement("div");
 		next.innerHTML = brs[ubr[0]][3];
