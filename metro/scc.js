@@ -46,10 +46,7 @@ f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("b
 var gamemode = document.createElement("p");
 gamemode.innerHTML = "Выберите режим игры"
 document.body.append(gamemode, f, document.createElement("br"));
-
-$('input[type="radio"]').click(function(){
-	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
-			var numques = document.createElement("select");
+var numques = document.createElement("select");
 			var cont = document.createElement("div");
 			cont.setAttribute("id", "contr")
 			numques.setAttribute("id", "nques");
@@ -60,10 +57,15 @@ $('input[type="radio"]').click(function(){
 				numques.append(op);
 			}
 			randornot.after(cont);
+$('input[type="radio"]').click(function(){
+	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
+			
 			contr.append(document.createElement("br"), numques, document.createElement("br"))
 			
 	} else {
-		contr.remove();
+		if(!contr) {
+			contr.remove(); 
+		} 
 	}
 }) 
 
@@ -142,31 +144,34 @@ function start(){
 		document.body.append(tb)
 	} else if(uron == "memorize"){
 		var prev = document.createElement("div");
-		prev.innerHTML = brs[ubr[0]][1];
+		// prev.innerHTML = brs[ubr[0]][1];
 		prev.setAttribute("class", "side");
 		prev.setAttribute("id", "p");
 		document.body.append(prev);
 
 		var main = document.createElement("div");
-		main.innerHTML = brs[ubr[0]][2];
+		main.innerHTML = brs[ubr[0]][1];
 		main.setAttribute("class", "main");
 		main.setAttribute("id", "m");
 		document.body.append(main)//position of the branch indicato;
 
 		var next = document.createElement("div");
-		next.innerHTML = brs[ubr[0]][3];
+		next.innerHTML = brs[ubr[0]][2];
 		next.setAttribute("class", "side");
 		next.setAttribute("id", "n");
 		document.body.append(next);
 		
-		var bp = document.createElement("div");
+		var bp = document.createElement("div"); // button previous
 		bp.append(document.createElement("button"));
 		bp.firstChild.innerHTML = "<";
 		bp.setAttribute("class", "but")
+
+		var bra = document.createElement("div");
+		bra.innerHTML = 
 		document.body.append(document.createElement("br"), document.createElement("br"), bp)
 	}
 }
-
+var points = 0;
 function nextques() {
 	var num = rand(0, ubr.length);
 	var cur = brs[ubr[num]];
@@ -178,15 +183,17 @@ function nextques() {
 		for(var h = 0; h<document.querySelectorAll("button").length;h++){
 			document.querySelectorAll("button")[h].setAttribute("disabled", "true")
 		}
-		q.innerHTML = "GAME OVER"
+		q.innerHTML = "GAME OVER";
+		nques.innerHTML = "Correct: "+points+"/"+nq;
 	}
-}
-var poits = 0;
+};
+
 function check(usbranch){
 	if(usbranch == cor){
 		var kk = document.getElementById(usbranch).firstChild;
 		kk.style.backgroundColor = "#21b04a";
-		setTimeout(function(){kk.style.backgroundColor = "#e9e9ed"}, 300)
+		setTimeout(function(){kk.style.backgroundColor = "#e9e9ed"}, 300);
+		points++;
 		nextques();
 	} else {
 		var qq = document.getElementById(usbranch).firstChild;
