@@ -1,5 +1,6 @@
 body {
   margin: 20px;
+  font-family: Courier New;
 }
 
 .question {
@@ -22,4 +23,32 @@ table, td {
 #q {
   height: 70px;
   width: 200px;
+}
+button {
+ 
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  
+  cursor: pointer;
+}
+.side {
+  border: 1px dotted black;
+  opacity: 0.5;
+  padding: 10px;
+  display: inline-block;
+  width: 200px;
+  height: 40px;
+}
+.main {
+  border: 1px solid black;
+  padding: 10px;
+  display: inline-block;
+  height: 40px;
+  width: 200px;
+}
+.but {
+  border-radius: 20px;
 }
