@@ -63,7 +63,7 @@ $('input[type="radio"]').click(function(){
 			contr.append(document.createElement("br"), numques, document.createElement("br"))
 			
 	} else {
-		contr.remove()
+		contr.remove();
 	}
 }) 
 
@@ -185,15 +185,15 @@ var poits = 0;
 function check(usbranch){
 	if(usbranch == cor){
 		var kk = document.getElementById(usbranch).firstChild;
-		kk.style.border = "4px solid #21b04a";
-		setTimeout(function(){kk.style.border = null}, 300)
+		kk.style.backgroundColor = "#21b04a";
+		setTimeout(function(){kk.style.backgroundColor = "#e9e9ed"}, 300)
 		nextques();
 	} else {
 		var qq = document.getElementById(usbranch).firstChild;
 		var correct = document.getElementById(cor).firstChild;
-		qq.style.border = "4px solid red";
-		correct.style.border = "4px solid #21b04a";
-		setTimeout(function(){qq.style.border = null; correct.style.border = null;}, 300)
+		qq.style.backgroundColor = "red";
+		correct.style.backgroundColor = "#21b04a";
+		setTimeout(function(){qq.style.backgroundColor = "#e9e9ed"; correct.style.backgroundColor = "#e9e9ed";}, 300)
 		nextques();
 	}
 }
@@ -209,7 +209,8 @@ function hhh() {
 	if(uron == undefined) {
 		alert("Choose if to ask you randomly or in order!")
 	} else {
-		nq = Number(nques.value.slice(2));
+		if(document.querySelectorAll('input[type="radio"]')[0].checked)	nq = Number(nques.value.slice(2));
+	
 		if(document.getElementById("all").checked == true){
 			for(var b = 1; b<6; b++) {
 				ubr.push("m"+b)
