@@ -1,5 +1,6 @@
 body {
   margin: 20px;
+  font-family: Courier New;
 }
 
 .question {
@@ -25,7 +26,16 @@ table, td {
   height: 70px;
   width: 200px;
 }
-
+button {
+ 
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  
+  cursor: pointer;
+}
 .side {
   border: 1px dotted black;
   opacity: 0.5;
