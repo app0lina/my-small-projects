@@ -25,9 +25,7 @@ r.setAttribute("name", "rand");
 
 var rl = document.createElement("label");
 rl.setAttribute("for", "random");
-$("#random").click(function(){
-	
-})
+ 
 rl.innerHTML = "Случайные выбранные ветки в случайном порядке";
 
 var nr = document.createElement("input");
@@ -47,18 +45,28 @@ sub.innerHTML = "SUBMIT";
 f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
 var gamemode = document.createElement("p");
 gamemode.innerHTML = "Выберите режим игры"
-document.body.append(gamemode, f);
+document.body.append(gamemode, f, document.createElement("br"));
 
-var numques = document.createElement("select");
-document.body.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
+$('input[type="radio"]').click(function(){
+	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
+			var numques = document.createElement("select");
+			var cont = document.createElement("div");
+			cont.setAttribute("id", "contr")
+			numques.setAttribute("id", "nques");
+			for(var y = 5; y<55;y+=5){
+				var op = document.createElement("option");
+				op.setAttribute("value", "op"+y);
+				op.innerHTML = y;
+				numques.append(op);
+			}
+			randornot.after(cont);
+			contr.append(document.createElement("br"), numques, document.createElement("br"))
+			
+	} else {
+		contr.remove()
+	}
+}) 
 
-numques.setAttribute("id", "nques");
-for(var y = 5; y<55;y+=5){
-	var op = document.createElement("option");
-	op.setAttribute("value", "op"+y);
-	op.innerHTML = y;
-	numques.append(op);
-}
 var br = document.createElement("div");
 br.setAttribute("id", "userbranch");
 
@@ -95,7 +103,7 @@ var tb = document.createElement("table");
 var cor;
 var numq;
 function start(){
-	alert(uron)
+	
 	if(uron == "random"){
 		numq = nq;
 		var nquesEl = document.createElement("div");
@@ -173,7 +181,7 @@ function nextques() {
 		q.innerHTML = "GAME OVER"
 	}
 }
-
+var poits = 0;
 function check(usbranch){
 	if(usbranch == cor){
 		var kk = document.getElementById(usbranch).firstChild;
