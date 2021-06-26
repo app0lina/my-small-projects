@@ -15,7 +15,7 @@ var brs = {
 }
 
 var f = document.createElement("div");
-f.setAttribute("id", "randornot");
+f.setAttribute("id", "randomrnot");
 
 var r = document.createElement("input");
 
@@ -45,7 +45,7 @@ sub.innerHTML = "SUBMIT";
 f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
 var gamemode = document.createElement("p");
 gamemode.innerHTML = "Выберите режим игры"
-document.body.append(gamemode, f, document.createElement("br"));
+// document.body.append(gamemode, f, document.createElement("br"));
 var numques = document.createElement("select");
 			var cont = document.createElement("div");
 			cont.setAttribute("id", "contr")
@@ -56,7 +56,7 @@ var numques = document.createElement("select");
 				op.innerHTML = y;
 				numques.append(op);
 			}
-			randornot.after(cont);
+			// randomrnot.after(cont);
 $('input[type="radio"]').click(function(){
 	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
 			
@@ -89,11 +89,11 @@ for(var j = 0; j<all.length;j++){
 	curl.innerHTML = all[j][0]; //m1, m2...
 	br.append(cur, curl, document.createElement("br"))
 }
-document.body.append(br, document.createElement("br"), sub)
+// document.body.append(br, document.createElement("br"), sub)
 
-var uron; //user random or not
+var uron = "memorize"; //user random or not
 var nq; //number questions
-var ubr = []; //user branch
+var ubr = ["m1", "m2", "m3", "m4"]; //user branch
 
 function rand(min, max) {
   return (Math.floor(Math.random() * (max - min)) + min);
@@ -107,6 +107,7 @@ var numq;
 function start(){
 	
 	if(uron == "random"){
+		tb.setAttribute("class", "tbl")
 		numq = nq;
 		var nquesEl = document.createElement("div");
 		nquesEl.setAttribute("id", "nques");
@@ -143,34 +144,46 @@ function start(){
 		}
 		document.body.append(tb)
 	} else if(uron == "memorize"){
-		var prev = document.createElement("div");
-		// prev.innerHTML = brs[ubr[0]][1];
-		prev.setAttribute("class", "side");
-		prev.setAttribute("id", "p");
-		document.body.append(prev);
+		tb = document.createElement("table");
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+		//stations line
+		td.setAttribute("id", "p");
+		td.setAttribute("class", "side");
+		td.innerHTML = brs[ubr[0]][1]
+		tr.append(td);
 
-		var main = document.createElement("div");
-		main.innerHTML = brs[ubr[0]][1];
-		main.setAttribute("class", "main");
-		main.setAttribute("id", "m");
-		document.body.append(main)//position of the branch indicato;
+		td = document.createElement("td");
+		td.setAttribute("id", "m");
+		td.setAttribute("class", "main");
+		td.innerHTML = brs[ubr[0]][2]
+		tr.append(td);
 
-		var next = document.createElement("div");
-		next.innerHTML = brs[ubr[0]][2];
-		next.setAttribute("class", "side");
-		next.setAttribute("id", "n");
-		document.body.append(next);
+		td = document.createElement("td");
+		td.setAttribute("id", "n");
+		td.setAttribute("class", "side");
+		td.innerHTML = brs[ubr[0]][3]
+		tr.append(td);
+
+		tb.append(tr);
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+		//button branch up tr
+		tr.append(td);
+		td = document.createElement("td");
 		
-		var bp = document.createElement("div"); // button previous
-		bp.append(document.createElement("button"));
-		bp.firstChild.innerHTML = "<";
-		bp.setAttribute("class", "but")
+		td.setAttribute("id", "up");
+		td.innerHTML = "↑";
+		tr.append(td)
+		tb.append(tr);
 
-		var bra = document.createElement("div");
-		bra.innerHTML = 
-		document.body.append(document.createElement("br"), document.createElement("br"), bp)
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+		
+		document.body.append(tb)
 	}
 }
+start();
 var points = 0;
 function nextques() {
 	var num = rand(0, ubr.length);
