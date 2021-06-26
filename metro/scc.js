@@ -45,7 +45,7 @@ sub.innerHTML = "SUBMIT";
 f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
 var gamemode = document.createElement("p");
 gamemode.innerHTML = "Выберите режим игры"
-// document.body.append(gamemode, f, document.createElement("br"));
+document.body.append(gamemode, f, document.createElement("br"));
 var numques = document.createElement("select");
 			var cont = document.createElement("div");
 			cont.setAttribute("id", "contr")
@@ -56,7 +56,7 @@ var numques = document.createElement("select");
 				op.innerHTML = y;
 				numques.append(op);
 			}
-			// randomrnot.after(cont);
+			randomrnot.after(cont);
 $('input[type="radio"]').click(function(){
 	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
 			
@@ -89,7 +89,7 @@ for(var j = 0; j<all.length;j++){
 	curl.innerHTML = all[j][0]; //m1, m2...
 	br.append(cur, curl, document.createElement("br"))
 }
-// document.body.append(br, document.createElement("br"), sub)
+document.body.append(br, document.createElement("br"), sub)
 
 var uron = "memorize"; //user random or not
 var nq; //number questions
@@ -223,7 +223,7 @@ function start(mainbran){
 		document.body.append(tb)
 	}
 }
-start(ubr[0]);
+
 var ch = true;
 function stnext(){
 	
