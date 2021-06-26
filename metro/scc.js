@@ -93,8 +93,11 @@ for(var j = 0; j<all.length;j++){
 
 var uron = "memorize"; //user random or not
 var nq; //number questions
-var ubr = ["m1", "m2", "m3", "m4"]; //user branch
+var ubr = ["m2", "m3", "m4"]; //user branch
 
+var numstprev;
+var numstmain = 1;
+var numstnext = 2;
 function rand(min, max) {
   return (Math.floor(Math.random() * (max - min)) + min);
 };
@@ -104,8 +107,8 @@ var td = document.createElement("td");
 var tb = document.createElement("table");
 var cor;
 var numq;
-function start(){
-	
+function start(mainbran){
+
 	if(uron == "random"){
 		tb.setAttribute("class", "tbl")
 		numq = nq;
@@ -150,40 +153,114 @@ function start(){
 		//stations line
 		td.setAttribute("id", "p");
 		td.setAttribute("class", "side");
-		td.innerHTML = brs[ubr[0]][1]
 		tr.append(td);
 
 		td = document.createElement("td");
 		td.setAttribute("id", "m");
 		td.setAttribute("class", "main");
-		td.innerHTML = brs[ubr[0]][2]
+		td.innerHTML = brs[ubr[0]][numstmain]
 		tr.append(td);
 
 		td = document.createElement("td");
 		td.setAttribute("id", "n");
 		td.setAttribute("class", "side");
-		td.innerHTML = brs[ubr[0]][3]
+		td.innerHTML = brs[ubr[0]][numstnext]
 		tr.append(td);
+		//end stations line
 
 		tb.append(tr);
 		tr = document.createElement("tr");
 		td = document.createElement("td");
 		//button branch up tr
+		td.setAttribute("class", "nope")
 		tr.append(td);
 		td = document.createElement("td");
-		
 		td.setAttribute("id", "up");
-		td.innerHTML = "↑";
+		var butt = document.createElement("button");
+		butt.innerHTML = "↑ M"+ubr[1].slice(1)+" ↑";
+		butt.setAttribute("onclick", "brup()");
+		td.setAttribute("class", "main")
+		td.append(butt);
 		tr.append(td)
 		tb.append(tr);
+		//end branch up tr
 
 		tr = document.createElement("tr");
 		td = document.createElement("td");
+		butt = document.createElement("button");
 		
+		//start tr stprev mainbr stnext
+		butt.setAttribute("class", "but");
+		butt.innerHTML = "←";
+		butt.setAttribute("id", "stp")
+		// butt.setAttribute("onclick", "stprev()") // add in the stnext 
+		td.setAttribute("class", "buttd");
+		td.append(butt);
+		tr.append(td);
+		tb.append(tr);
+		//end stprev
+
+		//td butt clear
+		td = document.createElement("td");
+		//start mainbr
+		td.setAttribute("class", "main");
+		td.setAttribute("id", "mbr");
+		td.setAttribute("style", "background-color:"+brs[mainbran][0])
+		td.innerHTML = "M"+ubr[0].slice(1);
+		tr.append(td);
+		tb.append(tr);
+
+		td = document.createElement("td");
+		butt = document.createElement("button");
+
+		butt.setAttribute("class", "but");
+		butt.innerHTML = "→";
+		butt.setAttribute("onclick", "stnext()")
+		td.setAttribute("class", "buttd");
+		td.append(butt);
+		tr.append(td);
+		tb.append(tr);
 		document.body.append(tb)
 	}
 }
-start();
+start(ubr[0]);
+var ch = true;
+function stnext(){
+	
+	if(numstnext+1<brs[ubr[0]].length){
+		if(ch){
+			stp.setAttribute("onclick", "stprev()")
+			ch = false;
+		}
+		numstprev = numstmain;
+		numstmain++;
+		numstnext++;
+
+		p.innerHTML = m.innerHTML;
+		m.innerHTML = n.innerHTML;
+		n.innerHTML = brs[ubr[0]][numstnext];
+	} else {
+		n.innerHTML = ""
+	}
+	
+}
+
+function stprev(){	
+	numstprev--;
+	numstmain--;
+	numstnext--;
+	if(numstprev == 0) {
+		p.innerHTML = "";
+		stp.removeAttribute("onclick");
+	} else {
+		p.innerHTML = brs[ubr[0]][numstprev]
+	}
+	
+	m.innerHTML = brs[ubr[0]][numstmain]
+	n.innerHTML = brs[ubr[0]][numstnext]
+}
+
+
 var points = 0;
 function nextques() {
 	var num = rand(0, ubr.length);
@@ -246,8 +323,7 @@ function hhh() {
 			ubr = [];
 		} else {
 			document.body.innerHTML = "";
-			start()
+			start(ubr[0])
 		}
 	}
 }
-
