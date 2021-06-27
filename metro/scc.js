@@ -49,7 +49,7 @@ document.body.append(gamemode, f, document.createElement("br"));
 var numques = document.createElement("select");
 
 numques.setAttribute("id", "nques");
-for(var y = 5; y<55;y+=5){
+for(var y = 5; y<101;y+=5){
 	var op = document.createElement("option");
 	op.setAttribute("value", "op"+y);
 	op.innerHTML = y;
@@ -242,6 +242,8 @@ function stnext(){
 		m.innerHTML = n.innerHTML;
 		n.innerHTML = brs[ubr[0]][numstnext];
 	} else {
+		p.innerHTML = m.innerHTML;
+		m.innerHTML = n.innerHTML;
 		n.innerHTML = ""
 	}
 	
