@@ -15,7 +15,7 @@ var brs = {
 }
 
 var f = document.createElement("div");
-f.setAttribute("id", "randornot");
+f.setAttribute("id", "randomrnot");
 
 var r = document.createElement("input");
 
@@ -47,23 +47,25 @@ var gamemode = document.createElement("p");
 gamemode.innerHTML = "Выберите режим игры"
 document.body.append(gamemode, f, document.createElement("br"));
 var numques = document.createElement("select");
-			var cont = document.createElement("div");
-			cont.setAttribute("id", "contr")
-			numques.setAttribute("id", "nques");
-			for(var y = 5; y<55;y+=5){
-				var op = document.createElement("option");
-				op.setAttribute("value", "op"+y);
-				op.innerHTML = y;
-				numques.append(op);
-			}
-			randornot.after(cont);
+var cont = document.createElement("div");
+cont.setAttribute("id", "contr")
+numques.setAttribute("id", "nques");
+for(var y = 5; y<55;y+=5){
+	var op = document.createElement("option");
+	op.setAttribute("value", "op"+y);
+	op.innerHTML = y;
+	numques.append(op);
+}
+randomrnot.after(cont);
 $('input[type="radio"]').click(function(){
+	alert(contr)
 	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
-			
-			contr.append(document.createElement("br"), numques, document.createElement("br"))
-			
+		
+			contr.append(document.createElement("br"), numques, document.createElement("br"));
+		
 	} else {
-		if(!contr) {
+
+		if(!!contr) {
 			contr.remove(); 
 		} 
 	}
@@ -95,6 +97,9 @@ var uron; //user random or not
 var nq; //number questions
 var ubr = []; //user branch
 
+var numstprev;
+var numstmain = 1;
+var numstnext = 2;
 function rand(min, max) {
   return (Math.floor(Math.random() * (max - min)) + min);
 };
@@ -104,9 +109,10 @@ var td = document.createElement("td");
 var tb = document.createElement("table");
 var cor;
 var numq;
-function start(){
-	
+function start(mainbran){
+
 	if(uron == "random"){
+		tb.setAttribute("class", "tbl")
 		numq = nq;
 		var nquesEl = document.createElement("div");
 		nquesEl.setAttribute("id", "nques");
@@ -143,34 +149,120 @@ function start(){
 		}
 		document.body.append(tb)
 	} else if(uron == "memorize"){
-		var prev = document.createElement("div");
-		// prev.innerHTML = brs[ubr[0]][1];
-		prev.setAttribute("class", "side");
-		prev.setAttribute("id", "p");
-		document.body.append(prev);
+		tb = document.createElement("table");
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+		//stations line
+		td.setAttribute("id", "p");
+		td.setAttribute("class", "side");
+		tr.append(td);
 
-		var main = document.createElement("div");
-		main.innerHTML = brs[ubr[0]][1];
-		main.setAttribute("class", "main");
-		main.setAttribute("id", "m");
-		document.body.append(main)//position of the branch indicato;
+		td = document.createElement("td");
+		td.setAttribute("id", "m");
+		td.setAttribute("class", "main");
+		td.innerHTML = brs[ubr[0]][numstmain]
+		tr.append(td);
 
-		var next = document.createElement("div");
-		next.innerHTML = brs[ubr[0]][2];
-		next.setAttribute("class", "side");
-		next.setAttribute("id", "n");
-		document.body.append(next);
+		td = document.createElement("td");
+		td.setAttribute("id", "n");
+		td.setAttribute("class", "side");
+		td.innerHTML = brs[ubr[0]][numstnext]
+		tr.append(td);
+		//end stations line
+
+		tb.append(tr);
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+		//button branch up tr
+		td.setAttribute("class", "nope")
+		tr.append(td);
+		td = document.createElement("td");
+		td.setAttribute("id", "up");
+		var butt = document.createElement("button");
+		butt.innerHTML = "↑ M"+ubr[1].slice(1)+" ↑";
+		butt.setAttribute("onclick", "brup()");
+		td.setAttribute("class", "main")
+		td.append(butt);
+		tr.append(td)
+		tb.append(tr);
+		//end branch up tr
+
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+		butt = document.createElement("button");
 		
-		var bp = document.createElement("div"); // button previous
-		bp.append(document.createElement("button"));
-		bp.firstChild.innerHTML = "<";
-		bp.setAttribute("class", "but")
+		//start tr stprev mainbr stnext
+		butt.setAttribute("class", "but");
+		butt.innerHTML = "←";
+		butt.setAttribute("id", "stp")
+		// butt.setAttribute("onclick", "stprev()") // add in the stnext 
+		td.setAttribute("class", "buttd");
+		td.append(butt);
+		tr.append(td);
+		tb.append(tr);
+		//end stprev
 
-		var bra = document.createElement("div");
-		bra.innerHTML = 
-		document.body.append(document.createElement("br"), document.createElement("br"), bp)
+		//td butt clear
+		td = document.createElement("td");
+		//start mainbr
+		td.setAttribute("class", "main");
+		td.setAttribute("id", "mbr");
+		td.setAttribute("style", "background-color:"+brs[mainbran][0])
+		td.innerHTML = "M"+ubr[0].slice(1);
+		tr.append(td);
+		tb.append(tr);
+
+		td = document.createElement("td");
+		butt = document.createElement("button");
+
+		butt.setAttribute("class", "but");
+		butt.innerHTML = "→";
+		butt.setAttribute("onclick", "stnext()")
+		td.setAttribute("class", "buttd");
+		td.append(butt);
+		tr.append(td);
+		tb.append(tr);
+		document.body.append(tb)
 	}
 }
+
+var ch = true;
+function stnext(){
+	
+	if(numstnext+1<brs[ubr[0]].length){
+		if(ch){
+			stp.setAttribute("onclick", "stprev()")
+			ch = false;
+		}
+		numstprev = numstmain;
+		numstmain++;
+		numstnext++;
+
+		p.innerHTML = m.innerHTML;
+		m.innerHTML = n.innerHTML;
+		n.innerHTML = brs[ubr[0]][numstnext];
+	} else {
+		n.innerHTML = ""
+	}
+	
+}
+
+function stprev(){	
+	numstprev--;
+	numstmain--;
+	numstnext--;
+	if(numstprev == 0) {
+		p.innerHTML = "";
+		stp.removeAttribute("onclick");
+	} else {
+		p.innerHTML = brs[ubr[0]][numstprev]
+	}
+	
+	m.innerHTML = brs[ubr[0]][numstmain]
+	n.innerHTML = brs[ubr[0]][numstnext]
+}
+
+
 var points = 0;
 function nextques() {
 	var num = rand(0, ubr.length);
@@ -233,8 +325,7 @@ function hhh() {
 			ubr = [];
 		} else {
 			document.body.innerHTML = "";
-			start()
+			start(ubr[0])
 		}
 	}
 }
-
