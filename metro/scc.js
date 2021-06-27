@@ -47,23 +47,25 @@ var gamemode = document.createElement("p");
 gamemode.innerHTML = "Выберите режим игры"
 document.body.append(gamemode, f, document.createElement("br"));
 var numques = document.createElement("select");
-			var cont = document.createElement("div");
-			cont.setAttribute("id", "contr")
-			numques.setAttribute("id", "nques");
-			for(var y = 5; y<55;y+=5){
-				var op = document.createElement("option");
-				op.setAttribute("value", "op"+y);
-				op.innerHTML = y;
-				numques.append(op);
-			}
-			randomrnot.after(cont);
+var cont = document.createElement("div");
+cont.setAttribute("id", "contr")
+numques.setAttribute("id", "nques");
+for(var y = 5; y<55;y+=5){
+	var op = document.createElement("option");
+	op.setAttribute("value", "op"+y);
+	op.innerHTML = y;
+	numques.append(op);
+}
+randomrnot.after(cont);
 $('input[type="radio"]').click(function(){
+	alert(contr)
 	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
-			
-			contr.append(document.createElement("br"), numques, document.createElement("br"))
-			
+		
+			contr.append(document.createElement("br"), numques, document.createElement("br"));
+		
 	} else {
-		if(!contr) {
+
+		if(!!contr) {
 			contr.remove(); 
 		} 
 	}
@@ -91,9 +93,9 @@ for(var j = 0; j<all.length;j++){
 }
 document.body.append(br, document.createElement("br"), sub)
 
-var uron = "memorize"; //user random or not
+var uron; //user random or not
 var nq; //number questions
-var ubr = ["m2", "m3", "m4"]; //user branch
+var ubr = []; //user branch
 
 var numstprev;
 var numstmain = 1;
