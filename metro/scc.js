@@ -47,9 +47,7 @@ var gamemode = document.createElement("p");
 gamemode.innerHTML = "Выберите режим игры"
 document.body.append(gamemode, f, document.createElement("br"));
 var numques = document.createElement("select");
-var cont = document.createElement("div");
-cont.setAttribute("id", "contr")
-randomrnot.after(cont);
+
 numques.setAttribute("id", "nques");
 for(var y = 5; y<55;y+=5){
 	var op = document.createElement("option");
@@ -59,11 +57,12 @@ for(var y = 5; y<55;y+=5){
 }
 
 $('input[type="radio"]').click(function(){
-	alert(document.getElementById("contr"))
+	
 	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
-		
+			var cont = document.createElement("div");
+			cont.setAttribute("id", "contr")
+			randomrnot.after(cont);
 			document.getElementById("contr").append(document.createElement("br"), numques, document.createElement("br"));
-		
 	} else {
 
 		if(!!document.getElementById("contr")) {
