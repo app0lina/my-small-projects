@@ -19,7 +19,7 @@ td {
   
 }
 
-table, td {
+.tbl, td {
   border: 1px black solid;
   width: 200px;
 }
