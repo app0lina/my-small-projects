@@ -49,6 +49,7 @@ document.body.append(gamemode, f, document.createElement("br"));
 var numques = document.createElement("select");
 var cont = document.createElement("div");
 cont.setAttribute("id", "contr")
+randomrnot.after(cont);
 numques.setAttribute("id", "nques");
 for(var y = 5; y<55;y+=5){
 	var op = document.createElement("option");
@@ -56,17 +57,17 @@ for(var y = 5; y<55;y+=5){
 	op.innerHTML = y;
 	numques.append(op);
 }
-randomrnot.after(cont);
+
 $('input[type="radio"]').click(function(){
-	alert(contr)
+	alert(document.getElementById("contr"))
 	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
 		
-			contr.append(document.createElement("br"), numques, document.createElement("br"));
+			document.getElementById("contr").append(document.createElement("br"), numques, document.createElement("br"));
 		
 	} else {
 
-		if(!!contr) {
-			contr.remove(); 
+		if(!!document.getElementById("contr")) {
+			document.getElementById("contr").remove(); 
 		} 
 	}
 }) 
