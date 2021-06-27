@@ -219,6 +219,7 @@ function start(mainbran){
 		butt.innerHTML = "→";
 		butt.setAttribute("onclick", "stnext()")
 		td.setAttribute("class", "buttd");
+		butt.setAttribute("id", "stn")
 		td.append(butt);
 		tr.append(td);
 		tb.append(tr);
@@ -246,10 +247,17 @@ function stnext(){
 		m.innerHTML = n.innerHTML;
 		n.innerHTML = ""
 	}
+	if(n.innerHTML == ""){
+		stn.removeAttribute("onclick")
+	}
 	
 }
 
 function stprev(){	
+	if(!ch){
+			stn.setAttribute("onclick", "stnext()")
+			ch = false;
+		}
 	numstprev--;
 	numstmain--;
 	numstnext--;
