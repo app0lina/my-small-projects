@@ -229,12 +229,13 @@ function start(mainbran){
 
 var ch = true;
 function stnext(){
+	if(ch){
+		stp.setAttribute("onclick", "stprev()")
+		ch = false;
+	}
 	
 	if(numstnext+1<brs[ubr[0]].length){
-		if(ch){
-			stp.setAttribute("onclick", "stprev()")
-			ch = false;
-		}
+		
 		numstprev = numstmain;
 		numstmain++;
 		numstnext++;
@@ -248,7 +249,7 @@ function stnext(){
 		n.innerHTML = ""
 	}
 	if(n.innerHTML == ""){
-		stn.removeAttribute("onclick")
+		stn.removeAttribute("onclick");
 	}
 	
 }
@@ -256,7 +257,7 @@ function stnext(){
 function stprev(){	
 	if(!ch){
 			stn.setAttribute("onclick", "stnext()")
-			ch = false;
+			ch = true;
 		}
 	numstprev--;
 	numstmain--;
@@ -331,7 +332,7 @@ function hhh() {
 		}
 
 		if(ubr.length<2 || all.checked == false){
-			alert("To play you have to select at least 2 branches!")
+			alert("To play or memorize you have to select at least 2 branches!")
 			ubr = [];
 		} else {
 			document.body.innerHTML = "";
