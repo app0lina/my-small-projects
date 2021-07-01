@@ -112,6 +112,8 @@ var numq;
 
 var ch = true;
 var curr;
+var numbr = 0;
+var trbrupexists = false;
 function stnext(){
 	if(ch){
 		stp.setAttribute("onclick", "stprev()")
@@ -158,7 +160,72 @@ function stprev(){
 	n.innerHTML = curr[numstnext];
 }
 
-function start(mainbran){
+function brup(){
+	if(numbr == 4) {
+		numbr--;
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+		butt = document.createElement("button")
+		td.setAttribute("class", "nope")
+		tr.append(td);
+		td = document.createElement("td");
+		butt = document.createElement("button");
+		butt.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		butt.setAttribute("id", "down");
+		butt.setAttribute("onclick", "brdown()");
+		td.setAttribute("class", "buttd");
+		td.append(butt);
+		tr.append(td);
+		document.querySelector("table").append(tr);
+
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
+		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+	} else {
+		numbr--;
+		down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		if(numbr >= 1){
+			up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+		} else {
+			document.querySelector("table").children[1].remove();
+			trbrupexists = false;
+		}
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
+	}
+}
+
+function brdown(){
+	numbr++;
+	if(!trbrupexists) {
+			
+			var tr = document.createElement("tr");
+			var td = document.createElement("td");
+			td.setAttribute("class", "nope");
+			tr.append(td);
+			td = document.createElement("td");			
+			var butt = document.createElement("button");
+			butt.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+			butt.setAttribute("id", "up");
+			butt.setAttribute("onclick", "brup()");
+			td.setAttribute("class", "main")
+			td.append(butt);
+			tr.append(td);
+			document.querySelector("table").firstChild.after(tr);
+			trbrupexists = true;
+
+		}
+		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
+		if(numbr < 4){
+			down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		} else {
+			document.querySelector("table").lastChild.remove();
+		}
+}
+
+function start(){
 
 	if(uron == "random"){
 		tb.setAttribute("class", "tbl")
@@ -225,20 +292,8 @@ function start(mainbran){
 		tb.append(tr);
 		tr = document.createElement("tr");
 		td = document.createElement("td");
-		//button branch up tr
-		td.setAttribute("class", "nope")
-		tr.append(td);
-		td = document.createElement("td");
-		td.setAttribute("id", "up");
-		var butt = document.createElement("button");
-		butt.innerHTML = "↑ -- ↑";
-		butt.setAttribute("onclick", "brup()");
-		td.setAttribute("class", "main")
-		td.append(butt);
-		tr.append(td)
-		tb.append(tr);
-		//end branch up tr
-
+		//button branch up tr WAZ HERE
+	
 		tr = document.createElement("tr");
 		td = document.createElement("td");
 		butt = document.createElement("button");
@@ -259,7 +314,7 @@ function start(mainbran){
 		//start mainbr
 		td.setAttribute("class", "main");
 		td.setAttribute("id", "mbr");
-		td.setAttribute("style", "background-color:"+brs[ubr[mainbran]][0])
+		td.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
 		td.innerHTML = "M"+ubr[0].slice(1);
 		tr.append(td);
 		tb.append(tr);
@@ -283,8 +338,9 @@ function start(mainbran){
 		tr.append(td);
 		td = document.createElement("td");
 		butt = document.createElement("button");
-		butt.innerHTML = "↓ M"+ubr[mainbran+1].slice(1)+" ↓";
-		butt.setAttribute("id", "down")
+		butt.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		butt.setAttribute("id", "down");
+		butt.setAttribute("onclick", "brdown()");
 		td.setAttribute("class", "buttd");
 		td.append(butt);
 		tr.append(td);
@@ -298,6 +354,17 @@ function start(mainbran){
 		  } else if(event.keyCode === 37) {
 		  	event.preventDefault();
 	 			document.getElementById("stp").click();
+		  } else if(event.keyCode === 38) {
+		  	event.preventDefault();
+	 			if(document.getElementById("up") != null) {
+					document.getElementById("up").click();
+		  	}
+		  } else if(event.keyCode === 40) {
+		  	event.preventDefault();
+		  	if(document.getElementById("down") != null) {
+					document.getElementById("down").click();
+		  	}
+	 			
 		  }
 		});
 	}
