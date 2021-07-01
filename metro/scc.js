@@ -61,7 +61,8 @@ $('input[type="radio"]').click(function(){
 	if (document.getElementById("random").checked) {
 			document.body.children[3].remove();
 			var cont = document.createElement("div");
-			cont.setAttribute("id", "contr")
+			cont.setAttribute("id", "contr");
+			var tit = "<b>Выберите число вопросов</b>"
 			cont.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 			randomrnot.after(cont);
 	} else if(!!document.getElementById("contr")) {
@@ -272,10 +273,11 @@ function start(){
 		td = document.createElement("td");
 		for(var i = 0; i<ubr.length; i++){
 			var but = document.createElement("button");
-			but.innerHTML = "M"+ubr[i].slice(1);
-			but.setAttribute("onclick", "check('"+ubr[i]+"')")
-			td.append(but);
+			td.innerHTML = "M"+ubr[i].slice(1);
+			// but.setAttribute("onclick", "check('"+ubr[i]+"')")
+			// td.append(but);
 			td.setAttribute("id", ubr[i])
+			td.setAttribute("onclick", 'check("'+ubr[i]+'");')
 			td.style.backgroundColor = brs[ubr[i]][0];
 			if(tr.children.length >= 2){
 				tb.append(tr);
@@ -288,8 +290,8 @@ function start(){
 				}
 			}
 			td = document.createElement("td");
-		}
-		document.body.append(tb)
+		};
+		document.body.append(tb);
 
 	} else if(uron == "memorize"){
 		curr = brs[ubr[0]].slice(1);
@@ -399,35 +401,43 @@ function start(){
 var points = 0;
 
 function nextques() {
-	var num = rand(0, ubr.length);
-	var cur = brs[ubr[num]];
-	q.innerHTML = cur[rand(1, cur.length)];
-	cor = ubr[num];
-	numq--;
-	nques.innerHTML = numq+"/"+nq;
-	if(numq == 0){
-		for(var h = 0; h<document.querySelectorAll("button").length;h++){
-			document.querySelectorAll("button")[h].setAttribute("disabled", "true")
+	$("#q").animate({opacity:0}, 150, function () {
+		var num = rand(0, ubr.length);
+		var cur = brs[ubr[num]];
+		q.innerHTML = cur[rand(1, cur.length)];
+		cor = ubr[num];
+		numq--;
+		nques.innerHTML = numq+"/"+nq;
+		if(numq == 0){
+			for(var h = 0; h<document.querySelectorAll("button").length;h++){
+				document.querySelectorAll("button")[h].setAttribute("disabled", "true")
+			}
+			q.innerHTML = "GAME OVER";
+			nques.innerHTML = "Correct: "+points+"/"+nq;
 		}
-		q.innerHTML = "GAME OVER";
-		nques.innerHTML = "Correct: "+points+"/"+nq;
-	}
+	});
+	$("#q").animate({opacity:1}, 150);
 };
 
 function check(usbranch){
+	// alert(usbranch)
+	// alert(cor);
 	if(usbranch == cor){
-		var kk = document.getElementById(usbranch).firstChild;
+		var kk = document.getElementById(usbranch);
 		kk.style.backgroundColor = "#21b04a";
-		setTimeout(function(){kk.style.backgroundColor = "#e9e9ed"}, 300);
+		setTimeout(function(){kk.style.backgroundColor = String(brs[usbranch][0])}, 300, nextques());
 		points++;
-		nextques();
 	} else {
-		var qq = document.getElementById(usbranch).firstChild;
-		var correct = document.getElementById(cor).firstChild;
+		var qq = document.getElementById(usbranch);
+		var correct = document.getElementById(cor);
+		var tt = cor;
 		qq.style.backgroundColor = "red";
 		correct.style.backgroundColor = "#21b04a";
-		setTimeout(function(){qq.style.backgroundColor = "#e9e9ed"; correct.style.backgroundColor = "#e9e9ed";}, 300)
-		nextques();
+		setTimeout(function(){
+			qq.style.backgroundColor = brs[usbranch][0]; 
+			correct.style.backgroundColor = brs[tt][0];
+		}, 300, nextques())
+		
 	}
 }
 
