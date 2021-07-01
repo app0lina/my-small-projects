@@ -44,7 +44,7 @@ sub.innerHTML = "SUBMIT";
 
 f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
 var gamemode = document.createElement("p");
-gamemode.innerHTML = "Выберите режим игры"
+gamemode.innerHTML = "<b>Выберите режим игры</b>"
 document.body.append(gamemode, f, document.createElement("br"));
 var numques = document.createElement("select");
 
@@ -104,6 +104,14 @@ function rand(min, max) {
   return (Math.floor(Math.random() * (max - min)) + min);
 };
 
+function objcount(obj) {
+    var count = 0;
+    for(var prop in obj) {
+       if(obj.hasOwnProperty(prop)) ++count;
+    }
+    return count;
+};
+
 var tr = document.createElement("tr");
 var td = document.createElement("td");
 var tb = document.createElement("table");
@@ -114,6 +122,9 @@ var ch = true;
 var curr;
 var numbr = 0;
 var trbrupexists = false;
+
+
+
 function stnext(){
 	if(ch){
 		stp.setAttribute("onclick", "stprev()")
@@ -193,7 +204,12 @@ function brup(){
 		mbr.innerHTML = "M"+ubr[numbr].slice(1)
 		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
 	}
+
+	numstprev;
+	numstmain = 0;	
+	numstnext = 1;
 	curr = brs[ubr[numbr]].slice(1);
+	p.innerHTML = "";
 	m.innerHTML = curr[numstmain];
 	n.innerHTML = curr[numstnext];
 }
@@ -226,10 +242,13 @@ function brdown(){
 		} else {
 			document.querySelector("table").lastChild.remove();
 		}
-	curr = brs[ubr[numbr]].slice(1);
-	
-	m.innerHTML = curr[numstmain];
-	n.innerHTML = curr[numstnext];
+		numstprev;
+		numstmain = 0;	
+		numstnext = 1;
+		curr = brs[ubr[numbr]].slice(1);
+		p.innerHTML = "";
+		m.innerHTML = curr[numstmain];
+		n.innerHTML = curr[numstnext];
 }
 
 function start(){
