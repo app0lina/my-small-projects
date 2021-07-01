@@ -58,16 +58,16 @@ for(var y = 5; y<101;y+=5){
 
 $('input[type="radio"]').click(function(){
 	
-	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
+	if (document.getElementById("random").checked) {
+			document.body.children[3].remove();
 			var cont = document.createElement("div");
 			cont.setAttribute("id", "contr")
+			cont.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 			randomrnot.after(cont);
-			document.getElementById("contr").append(document.createElement("br"), numques, document.createElement("br"));
-	} else {
-
-		if(!!document.getElementById("contr")) {
+	} else if(!!document.getElementById("contr")) {
+			// document.body.children[4].remove();
 			document.getElementById("contr").remove(); 
-		} 
+			randomrnot.after(document.createElement("br"))
 	}
 }) 
 
@@ -98,8 +98,8 @@ var nq; //number questions
 var ubr = []; //user branch
 
 var numstprev;
-var numstmain = 1;
-var numstnext = 2;
+var numstmain = 0;
+var numstnext = 1;
 function rand(min, max) {
   return (Math.floor(Math.random() * (max - min)) + min);
 };
@@ -111,30 +111,32 @@ var cor;
 var numq;
 
 var ch = true;
+var curr;
+var numbr = 0;
+var trbrupexists = false;
 function stnext(){
 	if(ch){
 		stp.setAttribute("onclick", "stprev()")
 		ch = false;
 	}
 	
-	if(numstnext<=brs[ubr[0]].length){
+	if(numstnext<curr.length){
 		
 		numstprev = numstmain;
 		numstmain++;
 		numstnext++;
 
-		p.innerHTML = brs[ubr[0]][numstprev];
-		m.innerHTML = brs[ubr[0]][numstmain];
-		n.innerHTML = brs[ubr[0]][numstnext];
+		p.innerHTML = curr[numstprev];
+		m.innerHTML = curr[numstmain];
+		n.innerHTML = curr[numstnext];
 	} else {
-		p.innerHTML = brs[ubr[0]][numstprev];
-		m.innerHTML = brs[ubr[0]][numstmain];
+		p.innerHTML = curr[numstprev];
+		m.innerHTML = curr[numstmain];
 		n.innerHTML = ""
 	}
 
-	if((numstnext) == brs[ubr[0]].length){
+	if((numstnext) == curr.length){
 		stn.removeAttribute("onclick");
-		
 		n.innerHTML = ""
 	} 
 }
@@ -147,17 +149,90 @@ function stprev(){
 		numstprev--;
 		numstmain--;
 		numstnext--; 
-	if(numstprev == 0) {
+	if(numstprev < 0) {
 		numstprev = undefined;
 		p.innerHTML = "";
 		stp.removeAttribute("onclick");
 	} else {
-		p.innerHTML = brs[ubr[0]][numstprev];
+		p.innerHTML = curr[numstprev];
 	}
-	m.innerHTML = brs[ubr[0]][numstmain];
-	n.innerHTML = brs[ubr[0]][numstnext];
+	m.innerHTML = curr[numstmain];
+	n.innerHTML = curr[numstnext];
 }
-function start(mainbran){
+
+function brup(){
+	if(numbr == 4) {
+		numbr--;
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+		butt = document.createElement("button")
+		td.setAttribute("class", "nope")
+		tr.append(td);
+		td = document.createElement("td");
+		butt = document.createElement("button");
+		butt.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		butt.setAttribute("id", "down");
+		butt.setAttribute("onclick", "brdown()");
+		td.setAttribute("class", "buttd");
+		td.append(butt);
+		tr.append(td);
+		document.querySelector("table").append(tr);
+
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
+		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+	} else {
+		numbr--;
+		down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		if(numbr >= 1){
+			up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+		} else {
+			document.querySelector("table").children[1].remove();
+			trbrupexists = false;
+		}
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
+	}
+	curr = brs[ubr[numbr]].slice(1);
+	m.innerHTML = curr[numstmain];
+	n.innerHTML = curr[numstnext];
+}
+
+function brdown(){
+	numbr++;
+	if(!trbrupexists) {
+			
+			var tr = document.createElement("tr");
+			var td = document.createElement("td");
+			td.setAttribute("class", "nope");
+			tr.append(td);
+			td = document.createElement("td");			
+			var butt = document.createElement("button");
+			butt.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+			butt.setAttribute("id", "up");
+			butt.setAttribute("onclick", "brup()");
+			td.setAttribute("class", "main")
+			td.append(butt);
+			tr.append(td);
+			document.querySelector("table").firstChild.after(tr);
+			trbrupexists = true;
+
+		}
+		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
+		if(numbr < 4){
+			down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		} else {
+			document.querySelector("table").lastChild.remove();
+		}
+	curr = brs[ubr[numbr]].slice(1);
+	
+	m.innerHTML = curr[numstmain];
+	n.innerHTML = curr[numstnext];
+}
+
+function start(){
 
 	if(uron == "random"){
 		tb.setAttribute("class", "tbl")
@@ -196,7 +271,10 @@ function start(mainbran){
 			td = document.createElement("td");
 		}
 		document.body.append(tb)
+
 	} else if(uron == "memorize"){
+		curr = brs[ubr[0]].slice(1);
+
 		tb = document.createElement("table");
 		tr = document.createElement("tr");
 		td = document.createElement("td");
@@ -208,33 +286,21 @@ function start(mainbran){
 		td = document.createElement("td");
 		td.setAttribute("id", "m");
 		td.setAttribute("class", "main");
-		td.innerHTML = brs[ubr[0]][numstmain]
+		td.innerHTML = curr[numstmain]
 		tr.append(td);
 
 		td = document.createElement("td");
 		td.setAttribute("id", "n");
 		td.setAttribute("class", "side");
-		td.innerHTML = brs[ubr[0]][numstnext]
+		td.innerHTML = curr[numstnext]
 		tr.append(td);
 		//end stations line
 
 		tb.append(tr);
 		tr = document.createElement("tr");
 		td = document.createElement("td");
-		//button branch up tr
-		td.setAttribute("class", "nope")
-		tr.append(td);
-		td = document.createElement("td");
-		td.setAttribute("id", "up");
-		var butt = document.createElement("button");
-		butt.innerHTML = "↑ M"+ubr[1].slice(1)+" ↑";
-		butt.setAttribute("onclick", "brup()");
-		td.setAttribute("class", "main")
-		td.append(butt);
-		tr.append(td)
-		tb.append(tr);
-		//end branch up tr
-
+		//button branch up tr WAZ HERE
+	
 		tr = document.createElement("tr");
 		td = document.createElement("td");
 		butt = document.createElement("button");
@@ -255,7 +321,7 @@ function start(mainbran){
 		//start mainbr
 		td.setAttribute("class", "main");
 		td.setAttribute("id", "mbr");
-		td.setAttribute("style", "background-color:"+brs[mainbran][0])
+		td.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
 		td.innerHTML = "M"+ubr[0].slice(1);
 		tr.append(td);
 		tb.append(tr);
@@ -271,6 +337,21 @@ function start(mainbran){
 		td.append(butt);
 		tr.append(td);
 		tb.append(tr);
+
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+
+		td.setAttribute("class", "nope")
+		tr.append(td);
+		td = document.createElement("td");
+		butt = document.createElement("button");
+		butt.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		butt.setAttribute("id", "down");
+		butt.setAttribute("onclick", "brdown()");
+		td.setAttribute("class", "buttd");
+		td.append(butt);
+		tr.append(td);
+		tb.append(tr);
 		document.body.append(tb);
 
 		document.body.addEventListener("keydown", function(event) {
@@ -280,6 +361,17 @@ function start(mainbran){
 		  } else if(event.keyCode === 37) {
 		  	event.preventDefault();
 	 			document.getElementById("stp").click();
+		  } else if(event.keyCode === 38) {
+		  	event.preventDefault();
+	 			if(document.getElementById("up") != null) {
+					document.getElementById("up").click();
+		  	}
+		  } else if(event.keyCode === 40) {
+		  	event.preventDefault();
+		  	if(document.getElementById("down") != null) {
+					document.getElementById("down").click();
+		  	}
+	 			
 		  }
 		});
 	}
@@ -348,7 +440,7 @@ function hhh() {
 			ubr = [];
 		} else {
 			document.body.innerHTML = "";
-			start(ubr[0])
+			start(ubr.indexOf(ubr[0]))
 		}
 	}
 }
