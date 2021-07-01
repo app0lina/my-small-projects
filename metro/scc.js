@@ -109,6 +109,54 @@ var td = document.createElement("td");
 var tb = document.createElement("table");
 var cor;
 var numq;
+
+var ch = true;
+function stnext(){
+	if(ch){
+		stp.setAttribute("onclick", "stprev()")
+		ch = false;
+	}
+	
+	if(numstnext<=brs[ubr[0]].length){
+		
+		numstprev = numstmain;
+		numstmain++;
+		numstnext++;
+
+		p.innerHTML = brs[ubr[0]][numstprev];
+		m.innerHTML = brs[ubr[0]][numstmain];
+		n.innerHTML = brs[ubr[0]][numstnext];
+	} else {
+		p.innerHTML = brs[ubr[0]][numstprev];
+		m.innerHTML = brs[ubr[0]][numstmain];
+		n.innerHTML = ""
+	}
+
+	if((numstnext) == brs[ubr[0]].length){
+		stn.removeAttribute("onclick");
+		
+		n.innerHTML = ""
+	} 
+}
+
+function stprev(){	
+	if(!ch){
+			stn.setAttribute("onclick", "stnext()")
+			ch = true;
+		}
+		numstprev--;
+		numstmain--;
+		numstnext--; 
+	if(numstprev == 0) {
+		numstprev = undefined;
+		p.innerHTML = "";
+		stp.removeAttribute("onclick");
+	} else {
+		p.innerHTML = brs[ubr[0]][numstprev];
+	}
+	m.innerHTML = brs[ubr[0]][numstmain];
+	n.innerHTML = brs[ubr[0]][numstnext];
+}
 function start(mainbran){
 
 	if(uron == "random"){
@@ -219,65 +267,22 @@ function start(mainbran){
 		butt.innerHTML = "→";
 		butt.setAttribute("onclick", "stnext()")
 		td.setAttribute("class", "buttd");
-		butt.setAttribute("id", "stn")
+		butt.setAttribute("id", "stn");
 		td.append(butt);
 		tr.append(td);
 		tb.append(tr);
-		document.body.append(tb)
-	}
-}
+		document.body.append(tb);
 
-var ch = true;
-function stnext(){
-	if(ch){
-		stp.setAttribute("onclick", "stprev()")
-		ch = false;
+		document.body.addEventListener("keydown", function(event) {
+		  if (event.keyCode === 39) {
+				event.preventDefault();
+				document.getElementById("stn").click();
+		  } else if(event.keyCode === 37) {
+		  	event.preventDefault();
+	 			document.getElementById("stp").click();
+		  }
+		});
 	}
-	
-	if(numstnext<=brs[ubr[0]].length){
-		
-		numstprev = numstmain;
-		numstmain++;
-		numstnext++;
-
-		p.innerHTML = brs[ubr[0]][numstprev];
-		m.innerHTML = brs[ubr[0]][numstmain];
-		n.innerHTML = brs[ubr[0]][numstnext];
-	} else {
-		p.innerHTML = brs[ubr[0]][numstprev];
-		m.innerHTML = brs[ubr[0]][numstmain];
-		n.innerHTML = ""
-	}
-
-	if((numstnext) == brs[ubr[0]].length){
-		stn.removeAttribute("onclick");
-		// numstprev++;
-		// numstmain++;
-		// numstnext++;
-		n.innerHTML = ""
-	} 
-}
-
-function stprev(){	
-	if(!ch){
-			stn.setAttribute("onclick", "stnext()")
-			ch = true;
-		}
-		numstprev--;
-		numstmain--;
-		numstnext--; 
-	if(numstprev == 0) {
-		// alert("if")
-		numstprev = undefined;
-		p.innerHTML = "";
-		stp.removeAttribute("onclick");
-	} else {
-		// alert("else");
-		// alert("prev="+numstprev+", main="+numstmain+", next="+numstnext);
-		p.innerHTML = brs[ubr[0]][numstprev];
-	}
-	m.innerHTML = brs[ubr[0]][numstmain];
-	n.innerHTML = brs[ubr[0]][numstnext];
 }
 
 var points = 0;
