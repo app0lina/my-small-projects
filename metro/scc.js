@@ -101,16 +101,10 @@ var ubr = []; //user branch
 var numstprev;
 var numstmain = 0;
 var numstnext = 1;
+
+var bre = document.createElement("br")
 function rand(min, max) {
   return (Math.floor(Math.random() * (max - min)) + min);
-};
-
-function objcount(obj) {
-    var count = 0;
-    for(var prop in obj) {
-       if(obj.hasOwnProperty(prop)) ++count;
-    }
-    return count;
 };
 
 var tr = document.createElement("tr");
@@ -159,7 +153,7 @@ function stprev(){
 		numstprev--;
 		numstmain--;
 		numstnext--; 
-	if(numstprev <= 0) {
+	if(numstprev == -1) {
 		numstprev = undefined;
 		p.innerHTML = "";
 		stp.removeAttribute("onclick");
@@ -176,16 +170,12 @@ function brup(){
 		numbr--;
 		tr = document.createElement("tr");
 		td = document.createElement("td");
-		butt = document.createElement("button")
-		td.setAttribute("class", "nope")
+		td.setAttribute("class", "nope");
 		tr.append(td);
 		td = document.createElement("td");
-		butt = document.createElement("button");
-		butt.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
-		butt.setAttribute("id", "down");
-		butt.setAttribute("onclick", "brdown()");
-		td.setAttribute("class", "buttd");
-		td.append(butt);
+		td.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		td.setAttribute("id", "down");
+		td.setAttribute("onclick", "brdown()");
 		tr.append(td);
 		document.querySelector("table").append(tr);
 
@@ -198,7 +188,7 @@ function brup(){
 		if(numbr >= 1){
 			up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
 		} else {
-			document.querySelector("table").children[1].remove();
+			up.innerHTML = "";
 			trbrupexists = false;
 		}
 		mbr.innerHTML = "M"+ubr[numbr].slice(1)
@@ -224,12 +214,10 @@ function brdown(){
 			td.setAttribute("class", "nope");
 			tr.append(td);
 			td = document.createElement("td");			
-			var butt = document.createElement("button");
-			butt.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
-			butt.setAttribute("id", "up");
-			butt.setAttribute("onclick", "brup()");
+			td.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+			td.setAttribute("id", "up");
+			td.setAttribute("onclick", "brup()");
 			td.setAttribute("class", "main")
-			td.append(butt);
 			tr.append(td);
 			document.querySelector("table").firstChild.after(tr);
 			trbrupexists = true;
@@ -320,19 +308,15 @@ function start(){
 		tb.append(tr);
 		tr = document.createElement("tr");
 		td = document.createElement("td");
-		//button branch up tr WAZ HERE
 	
 		tr = document.createElement("tr");
 		td = document.createElement("td");
-		butt = document.createElement("button");
 		
 		//start tr stprev mainbr stnext
-		butt.setAttribute("class", "but");
-		butt.innerHTML = "←";
-		butt.setAttribute("id", "stp")
-		// butt.setAttribute("onclick", "stprev()") // add in the stnext 
+		td.innerHTML = "←";
+		td.setAttribute("id", "stp")
 		td.setAttribute("class", "buttd");
-		td.append(butt);
+		// td.append(butt);
 		tr.append(td);
 		tb.append(tr);
 		//end stprev
@@ -348,14 +332,11 @@ function start(){
 		tb.append(tr);
 
 		td = document.createElement("td");
-		butt = document.createElement("button");
 
-		butt.setAttribute("class", "but");
-		butt.innerHTML = "→";
-		butt.setAttribute("onclick", "stnext()")
+		td.innerHTML = "→";
+		td.setAttribute("onclick", "stnext()")
 		td.setAttribute("class", "buttd");
-		butt.setAttribute("id", "stn");
-		td.append(butt);
+		td.setAttribute("id", "stn");
 		tr.append(td);
 		tb.append(tr);
 
@@ -365,12 +346,10 @@ function start(){
 		td.setAttribute("class", "nope")
 		tr.append(td);
 		td = document.createElement("td");
-		butt = document.createElement("button");
-		butt.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
-		butt.setAttribute("id", "down");
-		butt.setAttribute("onclick", "brdown()");
+		td.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		td.setAttribute("id", "down");
+		td.setAttribute("onclick", "brdown()");
 		td.setAttribute("class", "buttd");
-		td.append(butt);
 		tr.append(td);
 		tb.append(tr);
 		document.body.append(tb);
@@ -425,7 +404,7 @@ function check(usbranch){
 	if(usbranch == cor){
 		var kk = document.getElementById(usbranch);
 		kk.style.backgroundColor = "#21b04a";
-		setTimeout(function(){kk.style.backgroundColor = String(brs[usbranch][0])}, 300, nextques());
+		setTimeout(function(){kk.style.backgroundColor = brs[usbranch][0]}, 250, nextques());
 		points++;
 	} else {
 		var qq = document.getElementById(usbranch);
@@ -436,7 +415,7 @@ function check(usbranch){
 		setTimeout(function(){
 			qq.style.backgroundColor = brs[usbranch][0]; 
 			correct.style.backgroundColor = brs[tt][0];
-		}, 300, nextques())
+		}, 250, nextques())
 		
 	}
 }
