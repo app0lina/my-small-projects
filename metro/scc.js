@@ -58,16 +58,16 @@ for(var y = 5; y<101;y+=5){
 
 $('input[type="radio"]').click(function(){
 	
-	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
+	if (document.getElementById("random").checked) {
+			document.body.children[3].remove();
 			var cont = document.createElement("div");
 			cont.setAttribute("id", "contr")
+			cont.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 			randomrnot.after(cont);
-			document.getElementById("contr").append(document.createElement("br"), numques, document.createElement("br"));
-	} else {
-
-		if(!!document.getElementById("contr")) {
+	} else if(!!document.getElementById("contr")) {
+			// document.body.children[4].remove();
 			document.getElementById("contr").remove(); 
-		} 
+			randomrnot.after(document.createElement("br"))
 	}
 }) 
 
