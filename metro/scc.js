@@ -193,6 +193,9 @@ function brup(){
 		mbr.innerHTML = "M"+ubr[numbr].slice(1)
 		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
 	}
+	curr = brs[ubr[numbr]].slice(1);
+	m.innerHTML = curr[numstmain];
+	n.innerHTML = curr[numstnext];
 }
 
 function brdown(){
@@ -223,6 +226,10 @@ function brdown(){
 		} else {
 			document.querySelector("table").lastChild.remove();
 		}
+	curr = brs[ubr[numbr]].slice(1);
+	
+	m.innerHTML = curr[numstmain];
+	n.innerHTML = curr[numstnext];
 }
 
 function start(){
