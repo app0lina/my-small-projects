@@ -47,26 +47,26 @@ var gamemode = document.createElement("p");
 gamemode.innerHTML = "Выберите режим игры"
 document.body.append(gamemode, f, document.createElement("br"));
 var numques = document.createElement("select");
-var cont = document.createElement("div");
-cont.setAttribute("id", "contr")
+
 numques.setAttribute("id", "nques");
-for(var y = 5; y<55;y+=5){
+for(var y = 5; y<101;y+=5){
 	var op = document.createElement("option");
 	op.setAttribute("value", "op"+y);
 	op.innerHTML = y;
 	numques.append(op);
 }
-randomrnot.after(cont);
+
 $('input[type="radio"]').click(function(){
-	alert(contr)
+	
 	if (document.querySelectorAll('input[type="radio"]')[0].checked) {
-		
-			contr.append(document.createElement("br"), numques, document.createElement("br"));
-		
+			var cont = document.createElement("div");
+			cont.setAttribute("id", "contr")
+			randomrnot.after(cont);
+			document.getElementById("contr").append(document.createElement("br"), numques, document.createElement("br"));
 	} else {
 
-		if(!!contr) {
-			contr.remove(); 
+		if(!!document.getElementById("contr")) {
+			document.getElementById("contr").remove(); 
 		} 
 	}
 }) 
@@ -109,6 +109,54 @@ var td = document.createElement("td");
 var tb = document.createElement("table");
 var cor;
 var numq;
+
+var ch = true;
+function stnext(){
+	if(ch){
+		stp.setAttribute("onclick", "stprev()")
+		ch = false;
+	}
+	
+	if(numstnext<=brs[ubr[0]].length){
+		
+		numstprev = numstmain;
+		numstmain++;
+		numstnext++;
+
+		p.innerHTML = brs[ubr[0]][numstprev];
+		m.innerHTML = brs[ubr[0]][numstmain];
+		n.innerHTML = brs[ubr[0]][numstnext];
+	} else {
+		p.innerHTML = brs[ubr[0]][numstprev];
+		m.innerHTML = brs[ubr[0]][numstmain];
+		n.innerHTML = ""
+	}
+
+	if((numstnext) == brs[ubr[0]].length){
+		stn.removeAttribute("onclick");
+		
+		n.innerHTML = ""
+	} 
+}
+
+function stprev(){	
+	if(!ch){
+			stn.setAttribute("onclick", "stnext()")
+			ch = true;
+		}
+		numstprev--;
+		numstmain--;
+		numstnext--; 
+	if(numstprev == 0) {
+		numstprev = undefined;
+		p.innerHTML = "";
+		stp.removeAttribute("onclick");
+	} else {
+		p.innerHTML = brs[ubr[0]][numstprev];
+	}
+	m.innerHTML = brs[ubr[0]][numstmain];
+	n.innerHTML = brs[ubr[0]][numstnext];
+}
 function start(mainbran){
 
 	if(uron == "random"){
@@ -219,51 +267,26 @@ function start(mainbran){
 		butt.innerHTML = "→";
 		butt.setAttribute("onclick", "stnext()")
 		td.setAttribute("class", "buttd");
+		butt.setAttribute("id", "stn");
 		td.append(butt);
 		tr.append(td);
 		tb.append(tr);
-		document.body.append(tb)
+		document.body.append(tb);
+
+		document.body.addEventListener("keydown", function(event) {
+		  if (event.keyCode === 39) {
+				event.preventDefault();
+				document.getElementById("stn").click();
+		  } else if(event.keyCode === 37) {
+		  	event.preventDefault();
+	 			document.getElementById("stp").click();
+		  }
+		});
 	}
 }
-
-var ch = true;
-function stnext(){
-	
-	if(numstnext+1<brs[ubr[0]].length){
-		if(ch){
-			stp.setAttribute("onclick", "stprev()")
-			ch = false;
-		}
-		numstprev = numstmain;
-		numstmain++;
-		numstnext++;
-
-		p.innerHTML = m.innerHTML;
-		m.innerHTML = n.innerHTML;
-		n.innerHTML = brs[ubr[0]][numstnext];
-	} else {
-		n.innerHTML = ""
-	}
-	
-}
-
-function stprev(){	
-	numstprev--;
-	numstmain--;
-	numstnext--;
-	if(numstprev == 0) {
-		p.innerHTML = "";
-		stp.removeAttribute("onclick");
-	} else {
-		p.innerHTML = brs[ubr[0]][numstprev]
-	}
-	
-	m.innerHTML = brs[ubr[0]][numstmain]
-	n.innerHTML = brs[ubr[0]][numstnext]
-}
-
 
 var points = 0;
+
 function nextques() {
 	var num = rand(0, ubr.length);
 	var cur = brs[ubr[num]];
@@ -321,7 +344,7 @@ function hhh() {
 		}
 
 		if(ubr.length<2 || all.checked == false){
-			alert("To play you have to select at least 2 branches!")
+			alert("To play or memorize you have to select at least 2 branches!")
 			ubr = [];
 		} else {
 			document.body.innerHTML = "";
