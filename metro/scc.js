@@ -234,24 +234,28 @@ function stnext(){
 		ch = false;
 	}
 	
-	if(numstnext+1<brs[ubr[0]].length){
+	if(numstnext<=brs[ubr[0]].length){
 		
 		numstprev = numstmain;
 		numstmain++;
 		numstnext++;
 
-		p.innerHTML = m.innerHTML;
-		m.innerHTML = n.innerHTML;
+		p.innerHTML = brs[ubr[0]][numstprev];
+		m.innerHTML = brs[ubr[0]][numstmain];
 		n.innerHTML = brs[ubr[0]][numstnext];
 	} else {
-		p.innerHTML = m.innerHTML;
-		m.innerHTML = n.innerHTML;
+		p.innerHTML = brs[ubr[0]][numstprev];
+		m.innerHTML = brs[ubr[0]][numstmain];
 		n.innerHTML = ""
 	}
-	if(n.innerHTML == ""){
+
+	if((numstnext) == brs[ubr[0]].length){
 		stn.removeAttribute("onclick");
-	}
-	
+		// numstprev++;
+		// numstmain++;
+		// numstnext++;
+		n.innerHTML = ""
+	} 
 }
 
 function stprev(){	
@@ -259,22 +263,25 @@ function stprev(){
 			stn.setAttribute("onclick", "stnext()")
 			ch = true;
 		}
-	numstprev--;
-	numstmain--;
-	numstnext--;
+		numstprev--;
+		numstmain--;
+		numstnext--; 
 	if(numstprev == 0) {
+		// alert("if")
+		numstprev = undefined;
 		p.innerHTML = "";
 		stp.removeAttribute("onclick");
 	} else {
-		p.innerHTML = brs[ubr[0]][numstprev]
+		// alert("else");
+		// alert("prev="+numstprev+", main="+numstmain+", next="+numstnext);
+		p.innerHTML = brs[ubr[0]][numstprev];
 	}
-	
-	m.innerHTML = brs[ubr[0]][numstmain]
-	n.innerHTML = brs[ubr[0]][numstnext]
+	m.innerHTML = brs[ubr[0]][numstmain];
+	n.innerHTML = brs[ubr[0]][numstnext];
 }
 
-
 var points = 0;
+
 function nextques() {
 	var num = rand(0, ubr.length);
 	var cur = brs[ubr[num]];
