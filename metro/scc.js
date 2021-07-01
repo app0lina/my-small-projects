@@ -98,8 +98,8 @@ var nq; //number questions
 var ubr = []; //user branch
 
 var numstprev;
-var numstmain = 1;
-var numstnext = 2;
+var numstmain = 0;
+var numstnext = 1;
 function rand(min, max) {
   return (Math.floor(Math.random() * (max - min)) + min);
 };
@@ -111,30 +111,30 @@ var cor;
 var numq;
 
 var ch = true;
+var curr;
 function stnext(){
 	if(ch){
 		stp.setAttribute("onclick", "stprev()")
 		ch = false;
 	}
 	
-	if(numstnext<=brs[ubr[0]].length){
+	if(numstnext<curr.length){
 		
 		numstprev = numstmain;
 		numstmain++;
 		numstnext++;
 
-		p.innerHTML = brs[ubr[0]][numstprev];
-		m.innerHTML = brs[ubr[0]][numstmain];
-		n.innerHTML = brs[ubr[0]][numstnext];
+		p.innerHTML = curr[numstprev];
+		m.innerHTML = curr[numstmain];
+		n.innerHTML = curr[numstnext];
 	} else {
-		p.innerHTML = brs[ubr[0]][numstprev];
-		m.innerHTML = brs[ubr[0]][numstmain];
+		p.innerHTML = curr[numstprev];
+		m.innerHTML = curr[numstmain];
 		n.innerHTML = ""
 	}
 
-	if((numstnext) == brs[ubr[0]].length){
+	if((numstnext) == curr.length){
 		stn.removeAttribute("onclick");
-		
 		n.innerHTML = ""
 	} 
 }
@@ -147,16 +147,17 @@ function stprev(){
 		numstprev--;
 		numstmain--;
 		numstnext--; 
-	if(numstprev == 0) {
+	if(numstprev < 0) {
 		numstprev = undefined;
 		p.innerHTML = "";
 		stp.removeAttribute("onclick");
 	} else {
-		p.innerHTML = brs[ubr[0]][numstprev];
+		p.innerHTML = curr[numstprev];
 	}
-	m.innerHTML = brs[ubr[0]][numstmain];
-	n.innerHTML = brs[ubr[0]][numstnext];
+	m.innerHTML = curr[numstmain];
+	n.innerHTML = curr[numstnext];
 }
+
 function start(mainbran){
 
 	if(uron == "random"){
@@ -196,7 +197,10 @@ function start(mainbran){
 			td = document.createElement("td");
 		}
 		document.body.append(tb)
+
 	} else if(uron == "memorize"){
+		curr = brs[ubr[0]].slice(1);
+
 		tb = document.createElement("table");
 		tr = document.createElement("tr");
 		td = document.createElement("td");
@@ -208,13 +212,13 @@ function start(mainbran){
 		td = document.createElement("td");
 		td.setAttribute("id", "m");
 		td.setAttribute("class", "main");
-		td.innerHTML = brs[ubr[0]][numstmain]
+		td.innerHTML = curr[numstmain]
 		tr.append(td);
 
 		td = document.createElement("td");
 		td.setAttribute("id", "n");
 		td.setAttribute("class", "side");
-		td.innerHTML = brs[ubr[0]][numstnext]
+		td.innerHTML = curr[numstnext]
 		tr.append(td);
 		//end stations line
 
@@ -227,7 +231,7 @@ function start(mainbran){
 		td = document.createElement("td");
 		td.setAttribute("id", "up");
 		var butt = document.createElement("button");
-		butt.innerHTML = "↑ M"+ubr[1].slice(1)+" ↑";
+		butt.innerHTML = "↑ -- ↑";
 		butt.setAttribute("onclick", "brup()");
 		td.setAttribute("class", "main")
 		td.append(butt);
@@ -255,7 +259,7 @@ function start(mainbran){
 		//start mainbr
 		td.setAttribute("class", "main");
 		td.setAttribute("id", "mbr");
-		td.setAttribute("style", "background-color:"+brs[mainbran][0])
+		td.setAttribute("style", "background-color:"+brs[ubr[mainbran]][0])
 		td.innerHTML = "M"+ubr[0].slice(1);
 		tr.append(td);
 		tb.append(tr);
@@ -268,6 +272,20 @@ function start(mainbran){
 		butt.setAttribute("onclick", "stnext()")
 		td.setAttribute("class", "buttd");
 		butt.setAttribute("id", "stn");
+		td.append(butt);
+		tr.append(td);
+		tb.append(tr);
+
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+
+		td.setAttribute("class", "nope")
+		tr.append(td);
+		td = document.createElement("td");
+		butt = document.createElement("button");
+		butt.innerHTML = "↓ M"+ubr[mainbran+1].slice(1)+" ↓";
+		butt.setAttribute("id", "down")
+		td.setAttribute("class", "buttd");
 		td.append(butt);
 		tr.append(td);
 		tb.append(tr);
@@ -348,7 +366,7 @@ function hhh() {
 			ubr = [];
 		} else {
 			document.body.innerHTML = "";
-			start(ubr[0])
+			start(ubr.indexOf(ubr[0]))
 		}
 	}
 }
