@@ -123,8 +123,6 @@ var curr;
 var numbr = 0;
 var trbrupexists = false;
 
-
-
 function stnext(){
 	if(ch){
 		stp.setAttribute("onclick", "stprev()")
@@ -160,7 +158,7 @@ function stprev(){
 		numstprev--;
 		numstmain--;
 		numstnext--; 
-	if(numstprev < 0) {
+	if(numstprev <= 0) {
 		numstprev = undefined;
 		p.innerHTML = "";
 		stp.removeAttribute("onclick");
@@ -169,6 +167,7 @@ function stprev(){
 	}
 	m.innerHTML = curr[numstmain];
 	n.innerHTML = curr[numstnext];
+	
 }
 
 function brup(){
@@ -205,13 +204,14 @@ function brup(){
 		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
 	}
 
-	numstprev;
+	numstprev = undefined;
 	numstmain = 0;	
 	numstnext = 1;
 	curr = brs[ubr[numbr]].slice(1);
 	p.innerHTML = "";
 	m.innerHTML = curr[numstmain];
 	n.innerHTML = curr[numstnext];
+
 }
 
 function brdown(){
@@ -232,7 +232,6 @@ function brdown(){
 			tr.append(td);
 			document.querySelector("table").firstChild.after(tr);
 			trbrupexists = true;
-
 		}
 		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
 		mbr.innerHTML = "M"+ubr[numbr].slice(1)
@@ -242,13 +241,14 @@ function brdown(){
 		} else {
 			document.querySelector("table").lastChild.remove();
 		}
-		numstprev;
+		numstprev = undefined;
 		numstmain = 0;	
 		numstnext = 1;
 		curr = brs[ubr[numbr]].slice(1);
 		p.innerHTML = "";
 		m.innerHTML = curr[numstmain];
 		n.innerHTML = curr[numstnext];
+		stp.removeAttribute("onclick")
 }
 
 function start(){
