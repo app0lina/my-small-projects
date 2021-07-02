@@ -166,35 +166,29 @@ function stprev(){
 }
 
 function brup(){
-	if(numbr == 4) {
+	if(numbr == ubr.length-1) {
 		numbr--;
-		tr = document.createElement("tr");
-		td = document.createElement("td");
-		td.setAttribute("class", "nope");
-		tr.append(td);
-		td = document.createElement("td");
-		td.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
-		td.setAttribute("id", "down");
-		td.setAttribute("onclick", "brdown()");
-		tr.append(td);
-		document.querySelector("table").append(tr);
-
+		down.setAttribute("onclick", "brdown()");
 		mbr.innerHTML = "M"+ubr[numbr].slice(1)
 		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
 		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
 	} else {
 		numbr--;
 		down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		
 		if(numbr >= 1){
 			up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
 		} else {
-			up.innerHTML = "";
+			up.innerHTML = "↑ -- ↑";
 			trbrupexists = false;
 		}
 		mbr.innerHTML = "M"+ubr[numbr].slice(1)
 		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
 	}
 
+	if(numbr == 0){
+		up.removeAttribute("onclick")
+	}
 	numstprev = undefined;
 	numstmain = 0;	
 	numstnext = 1;
@@ -202,33 +196,23 @@ function brup(){
 	p.innerHTML = "";
 	m.innerHTML = curr[numstmain];
 	n.innerHTML = curr[numstnext];
-
 }
 
 function brdown(){
 	numbr++;
 	if(!trbrupexists) {
-			
-			var tr = document.createElement("tr");
-			var td = document.createElement("td");
-			td.setAttribute("class", "nope");
-			tr.append(td);
-			td = document.createElement("td");			
-			td.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
-			td.setAttribute("id", "up");
-			td.setAttribute("onclick", "brup()");
-			td.setAttribute("class", "main")
-			tr.append(td);
-			document.querySelector("table").firstChild.after(tr);
+			up.setAttribute("onclick", "brup()") 
 			trbrupexists = true;
 		}
 		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
 		mbr.innerHTML = "M"+ubr[numbr].slice(1)
 		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
-		if(numbr < 4){
-			down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		if(numbr == ubr.length-1){
+			down.innerHTML = "↓ -- ↓"
+			down.removeAttribute("onclick");
 		} else {
-			document.querySelector("table").lastChild.remove();
+			down.setAttribute("onclick", "brdown()")
+			down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
 		}
 		numstprev = undefined;
 		numstmain = 0;	
@@ -308,7 +292,18 @@ function start(){
 		tb.append(tr);
 		tr = document.createElement("tr");
 		td = document.createElement("td");
-	
+		
+		td.setAttribute("class", "nope");
+		tr.append(td);
+		td = document.createElement("td");			
+		td.innerHTML = "↑ -- ↑";
+		td.setAttribute("id", "up");
+		// td.setAttribute("onclick", "brup()");
+		td.setAttribute("class", "main")
+		tr.append(td);
+		tb.append(tr)
+		// document.querySelector("table").firstChild.after(tr);
+
 		tr = document.createElement("tr");
 		td = document.createElement("td");
 		
@@ -371,7 +366,6 @@ function start(){
 		  	if(document.getElementById("down") != null) {
 					document.getElementById("down").click();
 		  	}
-	 			
 		  }
 		});
 	}
