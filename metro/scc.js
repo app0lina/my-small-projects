@@ -116,7 +116,7 @@ var numq;
 var ch = true;
 var curr;
 var numbr = 0;
-var trbrupexists = false;
+var brupexists = false;
 
 function stnext(){
 	if(ch){
@@ -166,29 +166,27 @@ function stprev(){
 }
 
 function brup(){
-	if(numbr == ubr.length-1) {
-		numbr--;
+	numbr--;
+
+	if(!down.hasAttribute("onclick")) {
 		down.setAttribute("onclick", "brdown()");
-		mbr.innerHTML = "M"+ubr[numbr].slice(1)
-		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
-		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
-	} else {
-		numbr--;
-		down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
-		
-		if(numbr >= 1){
-			up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
-		} else {
-			up.innerHTML = "↑ -- ↑";
-			trbrupexists = false;
-		}
-		mbr.innerHTML = "M"+ubr[numbr].slice(1)
-		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
+		down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓"
 	}
 
-	if(numbr == 0){
-		up.removeAttribute("onclick")
+	if(numbr == 0) {
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0]);
+		up.innerHTML = "↑ -- ↑";
+		down.innerHTML = "↓ M"+ubr[(numbr+1)].slice(1)+" ↓";
+
+		up.removeAttribute("onclick");
+	} else {
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0]);
+		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+		down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
 	}
+
 	numstprev = undefined;
 	numstmain = 0;	
 	numstnext = 1;
@@ -200,28 +198,32 @@ function brup(){
 
 function brdown(){
 	numbr++;
-	if(!trbrupexists) {
-			up.setAttribute("onclick", "brup()") 
-			trbrupexists = true;
-		}
+	if(!up.hasAttribute("onclick")){
+		up.setAttribute("onclick", "brup()");
 		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+	}
+
+	if(numbr == (ubr.length-1)) {
 		mbr.innerHTML = "M"+ubr[numbr].slice(1)
-		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
-		if(numbr == ubr.length-1){
-			down.innerHTML = "↓ -- ↓"
-			down.removeAttribute("onclick");
-		} else {
-			down.setAttribute("onclick", "brdown()")
-			down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
-		}
-		numstprev = undefined;
-		numstmain = 0;	
-		numstnext = 1;
-		curr = brs[ubr[numbr]].slice(1);
-		p.innerHTML = "";
-		m.innerHTML = curr[numstmain];
-		n.innerHTML = curr[numstnext];
-		stp.removeAttribute("onclick")
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0]);
+		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑"
+		down.innerHTML = "↓ -- ↓";
+
+		down.removeAttribute("onclick");
+	} else {
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0]);
+		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+		down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+	}
+	numstprev = undefined;
+	numstmain = 0;	
+	numstnext = 1;
+	curr = brs[ubr[numbr]].slice(1);
+	p.innerHTML = "";
+	m.innerHTML = curr[numstmain];
+	n.innerHTML = curr[numstnext];
+	stp.removeAttribute("onclick");
 }
 
 function start(){
