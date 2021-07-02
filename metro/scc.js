@@ -26,7 +26,7 @@ r.setAttribute("name", "rand");
 var rl = document.createElement("label");
 rl.setAttribute("for", "random");
  
-rl.innerHTML = "Случайные выбранные ветки в случайном порядке";
+rl.innerHTML = "На какой ветке станция?";
 
 var nr = document.createElement("input");
 
@@ -44,7 +44,7 @@ sub.innerHTML = "SUBMIT";
 
 f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
 var gamemode = document.createElement("p");
-gamemode.innerHTML = "<b>Выберите режим игры</b>"
+gamemode.innerHTML = "<b>Выберите режим игры:</b>"
 document.body.append(gamemode, f, document.createElement("br"));
 var numques = document.createElement("select");
 
@@ -61,8 +61,10 @@ $('input[type="radio"]').click(function(){
 	if (document.getElementById("random").checked) {
 			document.body.children[3].remove();
 			var cont = document.createElement("div");
-			cont.setAttribute("id", "contr")
-			cont.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
+			cont.setAttribute("id", "contr");
+			var tit = document.createElement("b");
+			tit.innerHTML = "Выберите число вопросов"
+			cont.append(document.createElement("br"), tit, document.createElement("br"), document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 			randomrnot.after(cont);
 	} else if(!!document.getElementById("contr")) {
 			// document.body.children[4].remove();
@@ -79,7 +81,9 @@ cur.setAttribute("type", "checkbox");
 cur.setAttribute("id", "all")
 var curl = document.createElement("label");
 curl.innerHTML = 'Select all';
-br.append(cur, curl, document.createElement("br"))
+tit = document.createElement("b");
+tit.innerHTML = "Выберите ветки:"
+br.append(tit, document.createElement("br"), document.createElement("br"), cur, curl, document.createElement("br"))
 
 for(var j = 0; j<all.length;j++){
 	cur = document.createElement("input");
@@ -91,6 +95,7 @@ for(var j = 0; j<all.length;j++){
 	curl.innerHTML = all[j][0]; //m1, m2...
 	br.append(cur, curl, document.createElement("br"))
 }
+
 document.body.append(br, document.createElement("br"), sub)
 
 var uron; //user random or not
@@ -100,16 +105,10 @@ var ubr = []; //user branch
 var numstprev;
 var numstmain = 0;
 var numstnext = 1;
+
+var bre = document.createElement("br")
 function rand(min, max) {
   return (Math.floor(Math.random() * (max - min)) + min);
-};
-
-function objcount(obj) {
-    var count = 0;
-    for(var prop in obj) {
-       if(obj.hasOwnProperty(prop)) ++count;
-    }
-    return count;
 };
 
 var tr = document.createElement("tr");
@@ -121,9 +120,6 @@ var numq;
 var ch = true;
 var curr;
 var numbr = 0;
-var trbrupexists = false;
-
-
 
 function stnext(){
 	if(ch){
@@ -160,7 +156,7 @@ function stprev(){
 		numstprev--;
 		numstmain--;
 		numstnext--; 
-	if(numstprev < 0) {
+	if(numstprev == -1) {
 		numstprev = undefined;
 		p.innerHTML = "";
 		stp.removeAttribute("onclick");
@@ -169,43 +165,32 @@ function stprev(){
 	}
 	m.innerHTML = curr[numstmain];
 	n.innerHTML = curr[numstnext];
+	
 }
 
 function brup(){
-	if(numbr == 4) {
-		numbr--;
-		tr = document.createElement("tr");
-		td = document.createElement("td");
-		butt = document.createElement("button")
-		td.setAttribute("class", "nope")
-		tr.append(td);
-		td = document.createElement("td");
-		butt = document.createElement("button");
-		butt.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
-		butt.setAttribute("id", "down");
-		butt.setAttribute("onclick", "brdown()");
-		td.setAttribute("class", "buttd");
-		td.append(butt);
-		tr.append(td);
-		document.querySelector("table").append(tr);
+	numbr--;
 
-		mbr.innerHTML = "M"+ubr[numbr].slice(1)
-		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
-		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
-	} else {
-		numbr--;
-		down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
-		if(numbr >= 1){
-			up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
-		} else {
-			document.querySelector("table").children[1].remove();
-			trbrupexists = false;
-		}
-		mbr.innerHTML = "M"+ubr[numbr].slice(1)
-		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
+	if(!down.hasAttribute("onclick")) {
+		down.setAttribute("onclick", "brdown()");
+		down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓"
 	}
 
-	numstprev;
+	if(numbr == 0) {
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0]);
+		up.innerHTML = "↑ -- ↑";
+		down.innerHTML = "↓ M"+ubr[(numbr+1)].slice(1)+" ↓";
+
+		up.removeAttribute("onclick");
+	} else {
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0]);
+		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+		down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+	}
+
+	numstprev = undefined;
 	numstmain = 0;	
 	numstnext = 1;
 	curr = brs[ubr[numbr]].slice(1);
@@ -216,39 +201,32 @@ function brup(){
 
 function brdown(){
 	numbr++;
-	if(!trbrupexists) {
-			
-			var tr = document.createElement("tr");
-			var td = document.createElement("td");
-			td.setAttribute("class", "nope");
-			tr.append(td);
-			td = document.createElement("td");			
-			var butt = document.createElement("button");
-			butt.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
-			butt.setAttribute("id", "up");
-			butt.setAttribute("onclick", "brup()");
-			td.setAttribute("class", "main")
-			td.append(butt);
-			tr.append(td);
-			document.querySelector("table").firstChild.after(tr);
-			trbrupexists = true;
-
-		}
+	if(!up.hasAttribute("onclick")){
+		up.setAttribute("onclick", "brup()");
 		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+	}
+
+	if(numbr == (ubr.length-1)) {
 		mbr.innerHTML = "M"+ubr[numbr].slice(1)
-		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0])
-		if(numbr < 4){
-			down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
-		} else {
-			document.querySelector("table").lastChild.remove();
-		}
-		numstprev;
-		numstmain = 0;	
-		numstnext = 1;
-		curr = brs[ubr[numbr]].slice(1);
-		p.innerHTML = "";
-		m.innerHTML = curr[numstmain];
-		n.innerHTML = curr[numstnext];
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0]);
+		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑"
+		down.innerHTML = "↓ -- ↓";
+
+		down.removeAttribute("onclick");
+	} else {
+		mbr.innerHTML = "M"+ubr[numbr].slice(1)
+		mbr.setAttribute("style", "background-color:"+brs[ubr[numbr]][0]);
+		up.innerHTML = "↑ M"+ubr[numbr-1].slice(1)+" ↑";
+		down.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+	}
+	numstprev = undefined;
+	numstmain = 0;	
+	numstnext = 1;
+	curr = brs[ubr[numbr]].slice(1);
+	p.innerHTML = "";
+	m.innerHTML = curr[numstmain];
+	n.innerHTML = curr[numstnext];
+	stp.removeAttribute("onclick");
 }
 
 function start(){
@@ -272,10 +250,11 @@ function start(){
 		td = document.createElement("td");
 		for(var i = 0; i<ubr.length; i++){
 			var but = document.createElement("button");
-			but.innerHTML = "M"+ubr[i].slice(1);
-			but.setAttribute("onclick", "check('"+ubr[i]+"')")
-			td.append(but);
+			td.innerHTML = "M"+ubr[i].slice(1);
+			// but.setAttribute("onclick", "check('"+ubr[i]+"')")
+			// td.append(but);
 			td.setAttribute("id", ubr[i])
+			td.setAttribute("onclick", 'check("'+ubr[i]+'");')
 			td.style.backgroundColor = brs[ubr[i]][0];
 			if(tr.children.length >= 2){
 				tb.append(tr);
@@ -288,9 +267,9 @@ function start(){
 				}
 			}
 			td = document.createElement("td");
-		}
-		document.body.append(tb)
-
+		};
+		document.body.append(tb);
+		q.style.cursor = "auto";
 	} else if(uron == "memorize"){
 		curr = brs[ubr[0]].slice(1);
 
@@ -318,19 +297,26 @@ function start(){
 		tb.append(tr);
 		tr = document.createElement("tr");
 		td = document.createElement("td");
-		//button branch up tr WAZ HERE
-	
+		
+		td.setAttribute("class", "nope");
+		tr.append(td);
+		td = document.createElement("td");			
+		td.innerHTML = "↑ -- ↑";
+		td.setAttribute("id", "up");
+		// td.setAttribute("onclick", "brup()");
+		td.setAttribute("class", "main")
+		tr.append(td);
+		tb.append(tr)
+		// document.querySelector("table").firstChild.after(tr);
+
 		tr = document.createElement("tr");
 		td = document.createElement("td");
-		butt = document.createElement("button");
 		
 		//start tr stprev mainbr stnext
-		butt.setAttribute("class", "but");
-		butt.innerHTML = "←";
-		butt.setAttribute("id", "stp")
-		// butt.setAttribute("onclick", "stprev()") // add in the stnext 
+		td.innerHTML = "←";
+		td.setAttribute("id", "stp")
 		td.setAttribute("class", "buttd");
-		td.append(butt);
+		// td.append(butt);
 		tr.append(td);
 		tb.append(tr);
 		//end stprev
@@ -346,14 +332,11 @@ function start(){
 		tb.append(tr);
 
 		td = document.createElement("td");
-		butt = document.createElement("button");
 
-		butt.setAttribute("class", "but");
-		butt.innerHTML = "→";
-		butt.setAttribute("onclick", "stnext()")
+		td.innerHTML = "→";
+		td.setAttribute("onclick", "stnext()")
 		td.setAttribute("class", "buttd");
-		butt.setAttribute("id", "stn");
-		td.append(butt);
+		td.setAttribute("id", "stn");
 		tr.append(td);
 		tb.append(tr);
 
@@ -363,12 +346,10 @@ function start(){
 		td.setAttribute("class", "nope")
 		tr.append(td);
 		td = document.createElement("td");
-		butt = document.createElement("button");
-		butt.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
-		butt.setAttribute("id", "down");
-		butt.setAttribute("onclick", "brdown()");
+		td.innerHTML = "↓ M"+ubr[numbr+1].slice(1)+" ↓";
+		td.setAttribute("id", "down");
+		td.setAttribute("onclick", "brdown()");
 		td.setAttribute("class", "buttd");
-		td.append(butt);
 		tr.append(td);
 		tb.append(tr);
 		document.body.append(tb);
@@ -390,7 +371,6 @@ function start(){
 		  	if(document.getElementById("down") != null) {
 					document.getElementById("down").click();
 		  	}
-	 			
 		  }
 		});
 	}
@@ -399,35 +379,46 @@ function start(){
 var points = 0;
 
 function nextques() {
-	var num = rand(0, ubr.length);
-	var cur = brs[ubr[num]];
-	q.innerHTML = cur[rand(1, cur.length)];
-	cor = ubr[num];
-	numq--;
-	nques.innerHTML = numq+"/"+nq;
-	if(numq == 0){
-		for(var h = 0; h<document.querySelectorAll("button").length;h++){
-			document.querySelectorAll("button")[h].setAttribute("disabled", "true")
+	$("#q").animate({opacity:0}, 150, function () {
+		var num = rand(0, ubr.length);
+		var cur = brs[ubr[num]];
+		q.innerHTML = cur[rand(1, cur.length)];
+		cor = ubr[num];
+		numq--;
+		nques.innerHTML = numq+"/"+nq;
+		if(numq == 0){
+			for(var h = 1; h<document.querySelectorAll("td").length;h++){
+				document.querySelectorAll("td")[h].removeAttribute("onclick");
+				document.querySelectorAll("td")[h].style.cursor = "auto";
+			}
+			q.innerHTML = "КОНЕЦ ИГРЫ";
+			nques.innerHTML = "Correct: "+points+"/"+nq;
+			var but = document.createElement("button");
+			
 		}
-		q.innerHTML = "GAME OVER";
-		nques.innerHTML = "Correct: "+points+"/"+nq;
-	}
+	});
+	$("#q").animate({opacity:1}, 150);
 };
 
 function check(usbranch){
+	// alert(usbranch)
+	// alert(cor);
 	if(usbranch == cor){
-		var kk = document.getElementById(usbranch).firstChild;
+		var kk = document.getElementById(usbranch);
 		kk.style.backgroundColor = "#21b04a";
-		setTimeout(function(){kk.style.backgroundColor = "#e9e9ed"}, 300);
+		setTimeout(function(){kk.style.backgroundColor = brs[usbranch][0]}, 250, nextques());
 		points++;
-		nextques();
 	} else {
-		var qq = document.getElementById(usbranch).firstChild;
-		var correct = document.getElementById(cor).firstChild;
+		var qq = document.getElementById(usbranch);
+		var correct = document.getElementById(cor);
+		var tt = cor;
 		qq.style.backgroundColor = "red";
 		correct.style.backgroundColor = "#21b04a";
-		setTimeout(function(){qq.style.backgroundColor = "#e9e9ed"; correct.style.backgroundColor = "#e9e9ed";}, 300)
-		nextques();
+		setTimeout(function(){
+			qq.style.backgroundColor = brs[usbranch][0]; 
+			correct.style.backgroundColor = brs[tt][0];
+		}, 250, nextques())
+		
 	}
 }
 
@@ -440,7 +431,7 @@ function hhh() {
 	}
 
 	if(uron == undefined) {
-		alert("Choose if to ask you randomly or in order!")
+		alert("Выберите режим игры")
 	} else {
 		if(document.querySelectorAll('input[type="radio"]')[0].checked)	nq = Number(nques.value.slice(2));
 	
@@ -455,7 +446,7 @@ function hhh() {
 		}
 
 		if(ubr.length<2 || all.checked == false){
-			alert("To play or memorize you have to select at least 2 branches!")
+			alert("Что бы начать, нужно выбрать минимум 2 ветки!")
 			ubr = [];
 		} else {
 			document.body.innerHTML = "";
