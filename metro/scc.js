@@ -116,7 +116,6 @@ var numq;
 var ch = true;
 var curr;
 var numbr = 0;
-var brupexists = false;
 
 function stnext(){
 	if(ch){
