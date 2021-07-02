@@ -62,8 +62,9 @@ $('input[type="radio"]').click(function(){
 			document.body.children[3].remove();
 			var cont = document.createElement("div");
 			cont.setAttribute("id", "contr");
-			var tit = "<b>Выберите число вопросов</b>"
-			cont.append(document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
+			var tit = document.createElement("b");
+			tit.innerHTML = "Выберите число вопросов"
+			cont.append(document.createElement("br"), tit, document.createElement("br"), document.createElement("br"), numques, document.createElement("br"), document.createElement("br"));
 			randomrnot.after(cont);
 	} else if(!!document.getElementById("contr")) {
 			// document.body.children[4].remove();
@@ -92,6 +93,7 @@ for(var j = 0; j<all.length;j++){
 	curl.innerHTML = all[j][0]; //m1, m2...
 	br.append(cur, curl, document.createElement("br"))
 }
+
 document.body.append(br, document.createElement("br"), sub)
 
 var uron; //user random or not
