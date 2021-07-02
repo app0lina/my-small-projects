@@ -26,7 +26,7 @@ r.setAttribute("name", "rand");
 var rl = document.createElement("label");
 rl.setAttribute("for", "random");
  
-rl.innerHTML = "Случайные выбранные ветки в случайном порядке";
+rl.innerHTML = "На какой ветке станция?";
 
 var nr = document.createElement("input");
 
@@ -44,7 +44,7 @@ sub.innerHTML = "SUBMIT";
 
 f.append(r, rl, document.createElement("br"), nr, nrl, document.createElement("br"));
 var gamemode = document.createElement("p");
-gamemode.innerHTML = "<b>Выберите режим игры</b>"
+gamemode.innerHTML = "<b>Выберите режим игры:</b>"
 document.body.append(gamemode, f, document.createElement("br"));
 var numques = document.createElement("select");
 
@@ -81,7 +81,9 @@ cur.setAttribute("type", "checkbox");
 cur.setAttribute("id", "all")
 var curl = document.createElement("label");
 curl.innerHTML = 'Select all';
-br.append(cur, curl, document.createElement("br"))
+tit = document.createElement("b");
+tit.innerHTML = "Выберите ветки:"
+br.append(tit, document.createElement("br"), document.createElement("br"), cur, curl, document.createElement("br"))
 
 for(var j = 0; j<all.length;j++){
 	cur = document.createElement("input");
@@ -267,7 +269,7 @@ function start(){
 			td = document.createElement("td");
 		};
 		document.body.append(tb);
-
+		q.style.cursor = "auto";
 	} else if(uron == "memorize"){
 		curr = brs[ubr[0]].slice(1);
 
@@ -385,11 +387,14 @@ function nextques() {
 		numq--;
 		nques.innerHTML = numq+"/"+nq;
 		if(numq == 0){
-			for(var h = 0; h<document.querySelectorAll("button").length;h++){
-				document.querySelectorAll("button")[h].setAttribute("disabled", "true")
+			for(var h = 1; h<document.querySelectorAll("td").length;h++){
+				document.querySelectorAll("td")[h].removeAttribute("onclick");
+				document.querySelectorAll("td")[h].style.cursor = "auto";
 			}
-			q.innerHTML = "GAME OVER";
+			q.innerHTML = "КОНЕЦ ИГРЫ";
 			nques.innerHTML = "Correct: "+points+"/"+nq;
+			var but = document.createElement("button");
+			
 		}
 	});
 	$("#q").animate({opacity:1}, 150);
@@ -426,7 +431,7 @@ function hhh() {
 	}
 
 	if(uron == undefined) {
-		alert("Choose if to ask you randomly or in order!")
+		alert("Выберите режим игры")
 	} else {
 		if(document.querySelectorAll('input[type="radio"]')[0].checked)	nq = Number(nques.value.slice(2));
 	
@@ -441,7 +446,7 @@ function hhh() {
 		}
 
 		if(ubr.length<2 || all.checked == false){
-			alert("To play or memorize you have to select at least 2 branches!")
+			alert("Что бы начать, нужно выбрать минимум 2 ветки!")
 			ubr = [];
 		} else {
 			document.body.innerHTML = "";
