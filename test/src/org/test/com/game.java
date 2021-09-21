@@ -3,7 +3,7 @@ package org.test.com;
 import java.util.Random;
 import java.util.Scanner;
 
-public class hellp {
+public class game {
     public static void main(String[] args) {
         System.out.println("Welcome to the wonderland!");
         System.out.println("May I have your name!");
