@@ -8,4 +8,18 @@ public class organ {
         this.name = name;
         this.medcond = medcond;
     }
+
+    class heart extends organ {
+        int heartrate;
+
+        public heart(String name, String medcond, int heartrate) {
+            super(name, medcond);
+            this.heartrate = heartrate;
+        }
+
+        public void changerate(int heartrate) {
+            this.heartrate = heartrate;
+            System.out.println("Heart rate changed to "+heartrate);
+        }
+    }
 }
