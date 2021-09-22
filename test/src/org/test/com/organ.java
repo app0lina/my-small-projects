@@ -9,17 +9,24 @@ public class organ {
         this.medcond = medcond;
     }
 
-    class heart extends organ {
-        int heartrate;
+    public void details() {
+        System.out.println("Name: "+this.getName());
+        System.out.println("Medical condition: "+this.getMedcond());
+    }
 
-        public heart(String name, String medcond, int heartrate) {
-            super(name, medcond);
-            this.heartrate = heartrate;
-        }
+    public String getName() {
+        return name;
+    }
 
-        public void changerate(int heartrate) {
-            this.heartrate = heartrate;
-            System.out.println("Heart rate changed to "+heartrate);
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMedcond() {
+        return medcond;
+    }
+
+    public void setMedcond(String medcond) {
+        this.medcond = medcond;
     }
 }
