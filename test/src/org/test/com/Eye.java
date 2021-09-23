@@ -13,7 +13,7 @@ public class Eye extends organ{
     @Override
     public void details() {
         super.details();
-        System.out.println("Color: "+this.getColor());
+        System.out.println("\tColor: "+this.getColor());
     }
 
     public void open() {

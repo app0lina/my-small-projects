@@ -10,8 +10,8 @@ public class organ {
     }
 
     public void details() {
-        System.out.println("Name: "+this.getName());
-        System.out.println("Medical condition: "+this.getMedcond());
+        System.out.println("\tName: "+this.getName());
+        System.out.println("\tMedical condition: "+this.getMedcond());
     }
 
     public String getName() {
