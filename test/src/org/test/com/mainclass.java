@@ -5,19 +5,10 @@ import java.util.Scanner;
 public class mainclass {
     public static void main(String[] args) {
 
-        boolean finish = false;
-        while(!finish) {
-            System.out.println("Choose an option: \n\t1. Manage contacts \n\t2. Messages \n\t3. Quit");
-            Scanner sc = new Scanner(System.in);
-            int usopt = sc.nextInt();
-            switch (usopt) {
-                case 1:
-                    System.out.println("Choose an option: \n\t1. Manage contacts \n\t2. Messages \n\t3. Quit");
-                    usopt = sc.nextInt();
-                case 3: finish = true; break;
-                default: continue;
-            }
-        }
+
+        All all = new All();
+        all.mainfuncs();
+
 
 /*
 * • Simulate your phone's contacts and messages applications
