@@ -45,7 +45,7 @@ public class All{
                         for(String k: mes.keySet()) {
                             String key = k.toString();
                             String value = mes.get(k).toString();
-                            System.out.println(key + ": " + value);
+                            System.out.println("From me to "+key + ": " + value);
                         }
                         mesFuncs();
                     }else {
@@ -67,7 +67,7 @@ public class All{
         }
 
         public void send() {
-            System.out.println("\tTo: ");
+            System.out.print("To: ");
             String name = sc.next();
             System.out.println("Your maessage:\n");
             String message = sc.next();
@@ -85,7 +85,7 @@ public class All{
     }
 
     class Contacts {
-        Map<String, Integer> conts = new HashMap<>();
+        Map<String, String> conts = new HashMap<>();
         public void contFuncs() {
             System.out.println("Managing contacts. " +
                     "\n\t1. Show all" +
@@ -183,17 +183,8 @@ public class All{
             String name = sc.next();
             System.out.print("Number: ");
             boolean numnotint = true;
-            int num = sc.nextInt();
-        /*while(numnotint) {
-            try {
-                num = sc.nextInt();
-                numnotint = false;
-            } catch (InputMismatchException e){
-                System.out.println("Number is not a number. WRITE A NUMBER");
-                num = sc.nextInt();
-            }
-        }*/
-            //TODO: try catch cheking if the input number is number and not a string
+            String num = sc.next();
+
             conts.put(name, num);
             System.out.println("Added "+name+": "+num);
             contFuncs();
